@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Fallout Resume - Jia Liang</title>
+
+  <meta name="description" content="My resume done in the style of a RobCo terminal.">
+  <meta name="keywords" content="Fallout, Jia Liang, RobCo, Resume">
+  <meta name="author" content="Jia Liang">
+
+  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="canonical" href="https://jialiang.github.io/fallout-resume/" />
+
+  <style>
+    @font-face {
+      font-family: 'Roboto Mono';
+      font-style: normal;
+      font-weight: 400;
+      src: local('Roboto Mono'), local('RobotoMono-Regular'), url('Roboto-Mono-Regular.woff2') format('woff2');
+    }
+
+    html {
+      overflow: hidden;
+      background: #1a1a1a;
+      letter-spacing: 1px;
+      font-size: 1.25em;
+      font-family: "Roboto Mono", monospace;
+    }
+
+    body {
+      position: relative;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    body>br {
+      display: block;
+      margin-bottom: 2em;
+    }
+
+    main {
+      position: relative;
+      overflow-x: hidden;
+      overflow-y: auto;
+      box-sizing: border-box;
+      margin-left: 9vw;
+      padding: 0 9vw 0 0.25em;
+      width: 90vw;
+      height: 100vh;
+      color: #2ff97e;
+      text-shadow: 0.25em 0.25em 1em #86e789, 0 0 1px rgba(134, 231, 137, 0.7);
+      transform: skew(-1deg, -1deg);
+    }
+
+    .Cyan {
+      color: cyan;
+      text-shadow: 0.25em 0.25em 1em darkcyan, 0 0 1px lightcyan;
+    }
+
+    .White {
+      color: white;
+      text-shadow: 0.25em 0.25em 1em gray, 0 0 1px rgba(255, 255, 255, 0.7);
+    }
+
+    section {
+      display: none;
+    }
+
+    section:before {
+      display: block;
+      padding-top: 11vh;
+      content: "";
+    }
+
+    section:after {
+      display: block;
+      padding-top: 11vh;
+      content: "";
+    }
+
+    section:target,
+    #start {
+      display: block;
+    }
+
+    section:target~#start {
+      display: none;
+    }
+
+    h1,
+    h2,
+    p,
+    ul {
+      margin: 0 0 1.5em 0;
+      font-size: 1em;
+      font-weight: normal;
+    }
+
+    ul {
+      padding: 0;
+      list-style: none;
+    }
+
+    li {
+      margin-bottom: 0.25em;
+      padding: 0.25em 0;
+    }
+
+    li span {
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    li span:nth-child(1) {
+      margin-right: 1em;
+      max-width: 50%;
+      width: 10em;
+    }
+
+    li span:nth-child(2) {
+      min-width: calc(50% - 1em);
+      width: calc(100% - 11em);
+    }
+
+    li a {
+      display: block;
+    }
+
+    li a,
+    li button {
+      margin: 0 0 -0.5em -0.25em;
+      padding: 0.25em 0.25em 0.35em 0.25em;
+      border: none;
+      background: transparent;
+      color: inherit;
+      text-decoration: inherit;
+      text-shadow: inherit;
+      font-size: inherit;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    a:hover,
+    a:focus,
+    button:hover,
+    button:focus {
+      background: #00ff64;
+      box-shadow: 0 0 0.5em #86e789;
+      color: black;
+      text-shadow: 0 0 1px rgba(0, 0, 0, 0.7);
+    }
+
+    .Cyan a:hover,
+    .Cyan a:focus,
+    .Cyan button:hover,
+    .Cyan button:focus {
+      background: cyan;
+      box-shadow: 0 0 0.5em darkcyan;
+    }
+
+    .White a:hover,
+    .White a:focus,
+    .White button:hover,
+    .White button:focus {
+      background: white;
+      box-shadow: 0 0 0.5em gray;
+    }
+
+    a:focus,
+    button:focus,
+    button::-moz-focus-inner {
+      outline: none;
+      border: 0;
+    }
+
+    .monitor {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 50%, rgba(120, 120, 120, 0.1) 0) 0 0/100% 4px repeat-y;
+      pointer-events: none;
+    }
+
+    .scanlines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.1);
+      animation: 8s move-down linear infinite;
+    }
+
+    .frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      background: url(pipboy.png) 0 0/100% 100% no-repeat;
+    }
+
+    .cover {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+    }
+
+    .single-line {
+      white-space: nowrap;
+    }
+
+    @keyframes move-down {
+      0% {
+        transform: translateY(-100%);
+      }
+
+      100% {
+        transform: translateY(100%);
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="monitor" role="presentation">
+    <div class="scanlines"></div>
+    <div class="frame"></div>
+  </div>
+  <main class="Lime">
+    <section id="bootup" role="presentation">
+      <h1>Initializing system...</h1>
+      <br />
+
+      <p class="randoms"></p>
+
+      <a class="mainmenuButton" href="#mainmenu"></a>
+    </section>
+
+    <section id="mainmenu">
+      <h1>Welcome to ROBCO Industries (TM) Termlink</h1>
+      <br />
+
+      <ul>
+        <li><span>Filename:</span><span>Resume.txt</span></li>
+        <li><span>Last updated:</span><span>14/1/2020</span></li>
+      </ul>
+      <br />
+
+      <p class="single-line">&lt;--- Start of File ---&gt;</p>
+      <br />
+
+      <h2>SUBJECT DETAILS:<br />================</h2>
+      <ul>
+        <li><span>Name:</span><span>Ho Jia Liang</span></li>
+        <li><span>Designation:</span><span>Software Engineer</span></li>
+        <li><span>Location:</span><span>Singapore, Singapore</span></li>
+        <li><span>Website:</span><span>jialiang.<wbr />github.io</span></li>
+        <li><span>E-mail Address:</span><span>hojialiang<wbr />@yahoo.com</span></li>
+        <li><span>Phone Number:</span><span>REDACTED - Please refer to provided supple&shy;mentary materials</span></li>
+        <li><span>Status:</span><span>ACTIVE</span></li>
+      </ul>
+      <br />
+
+      <h2>SUBJECT INFORMATION:<br />====================</h2>
+      <ul>
+        <li><a href="#work">[Work Experience]</a></li>
+        <li><a href="#skills">[Technical Skills]</a></li>
+        <li><a href="#projects">[Personal Projects]</a></li>
+        <li><a href="#education">[Tertiary Education]</a></li>
+      </ul>
+      <br />
+
+      <p class="single-line">&lt;--- End of File ---&gt;</p>
+      <br />
+      <br />
+
+      <h2>*** TERMINAL SETTINGS ***</h2>
+      <ul>
+        <li><span>Radio:</span><span><button class="radioButton" onclick="toggleRadio()">[Disabled]</button></span></li>
+        <li><span>Text Color:</span><span><button class="textColorButton" onclick="cycleColor()">[Lime]</button></span></li>
+      </ul>
+      <br />
+
+      <ul>
+        <li><a class="aboutButton" href="#about-terminal">[About This Terminal]</a></li>
+        <li><a class="rebootButton" href="#bootup">[Reboot]</a></li>
+      </ul>
+      <br />
+
+    </section>
+
+    <section id="work">
+      <h1>Welcome to ROBCO Industries (TM) Termlink</h1>
+      <br />
+
+      <h2>Under construction...</h2>
+      <br />
+
+      <ul>
+        <li><a href="#mainmenu">[Back]</a></li>
+      </ul>
+      <br />
+    </section>
+
+    <section id="skills">
+      <h1>Welcome to ROBCO Industries (TM) Termlink</h1>
+      <br />
+
+      <h2>Under construction...</h2>
+      <br />
+
+      <ul>
+        <li><a href="#mainmenu">[Back]</a></li>
+      </ul>
+      <br />
+    </section>
+
+    <section id="projects">
+      <h1>Welcome to ROBCO Industries (TM) Termlink</h1>
+      <br />
+
+      <h2>Under construction...</h2>
+      <br />
+
+      <ul>
+        <li><a href="#mainmenu">[Back]</a></li>
+      </ul>
+      <br />
+    </section>
+
+    <section id="education">
+      <h1>Welcome to ROBCO Industries (TM) Termlink</h1>
+      <br />
+
+      <h2>Under construction...</h2>
+      <br />
+
+      <ul>
+        <li><a href="#mainmenu">[Back]</a></li>
+      </ul>
+      <br />
+    </section>
+
+    <section id="about-terminal">
+      <h1>*** UNIFIED OPERATING SYSTEM(R) V7.1.0.8 ***</h1>
+      <br />
+
+      <p>
+        COPYRIGHT 2075 ROBCO(R)<br />
+        LOADER V1.1<br />
+        EXEC VERSION 41.10<br />
+        64k RAM SYSTEM<br />
+        38911 BYTES FREE<br />
+        NO HOLOTAPE FOUND<br />
+        LOAD ROM(1): DEITRIX 303
+      </p>
+      <br />
+
+      <ul>
+        <li><a href="#mainmenu">[Back]</a></li>
+      </ul>
+      <br />
+    </section>
+
+    <section id="start">
+      <p>This webpage contains various ambient audio and sound effects which can't be turned off.<br />Do you still wish to proceed?</p>
+      <ul>
+        <li><a class="bootupButton" href="#bootup">[Confirm]</a></li>
+      </ul>
+      <br />
+      <p>
+        *** Keyboard users, use TAB for next, SHIFT+TAB for previous, UP and DOWN arrow keys to scroll and ENTER to COMFIRM ***
+      </p>
+    </section>
+
+    <div class="cover" role="presentation"></div>
+  </main>
+
+  <audio class="clickAudio" src="https://hugeassets.imfast.io/fallout-resume/click.mp3" type="audio/mpeg" preload=""></audio>
+  <audio class="hoverAudio" src="https://hugeassets.imfast.io/fallout-resume/hover.mp3" type="audio/mpeg" preload=""></audio>
+  <audio class="humAudio" src="https://hugeassets.imfast.io/fallout-resume/hum.flac" type="audio/flac" preload=""></audio>
+  <audio class="bootupAudio" src="https://hugeassets.imfast.io/fallout-resume/bootup.mp3" type="audio/mpeg" preload=""></audio>
+  <audio class="staticAudio" src="https://hugeassets.imfast.io/fallout-resume/static.mp3" type="audio/mpeg" preload=""></audio>
+
+  <audio class="diamondCityRadio" src="https://hugeassets.imfast.io/fallout-resume/radio.mp3" type="audio/mpeg" preload="metadata"></audio>
+
+  <script>
+    const constants = {
+      textColor: ["Lime", "Cyan", "White"]
+    };
+
+    const elems = {
+      main: document.getElementsByTagName("main")[0],
+      scanlines: document.getElementsByClassName("scanlines")[0],
+
+      radioButton: document.getElementsByClassName("radioButton")[0],
+      textColorButton: document.getElementsByClassName("textColorButton")[0],
+      aboutButton: document.getElementsByClassName("aboutButton")[0],
+      rebootButton: document.getElementsByClassName("rebootButton")[0],
+
+      bootupButton: document.getElementsByClassName("bootupButton")[0],
+      mainmenuButton: document.getElementsByClassName("mainmenuButton")[0],
+
+      randoms: document.getElementsByClassName("randoms")[0],
+
+      humAudio: document.getElementsByClassName("humAudio")[0],
+      clickAudio: document.getElementsByClassName("clickAudio")[0],
+      hoverAudio: document.getElementsByClassName("hoverAudio")[0],
+      bootupAudio: document.getElementsByClassName("bootupAudio")[0],
+      staticAudio: document.getElementsByClassName("staticAudio")[0],
+      radioAudio: document.getElementsByClassName("diamondCityRadio")[0],
+
+      cover: document.getElementsByClassName("cover")[0]
+    };
+
+    const globalState = {
+      textColor: constants.textColor[0]
+    };
+
+    function blurTransition(options) {
+      const {
+        elem, initialValue, finalValue, step, callback
+      } = options;
+
+      if (options.value == null) options.value = initialValue;
+
+      if (
+        (options.value === finalValue) ||
+        (options.value > finalValue && options.value > initialValue) ||
+        (options.value < finalValue && options.value < initialValue)
+      )
+        return callback && callback();
+
+      options.value += finalValue > initialValue ? step : -step;
+      options.value = Math.max(options.value, 0);
+
+      const brightnessValue = 1 - options.value / options.finalValue / 2;
+
+      elem.style.filter = options.value ? "blur(" + options.value + "px) brightness(" + brightnessValue + ")" : "";
+
+      requestAnimationFrame(() => { blurTransition(options); });
+    }
+
+    async function transitionManager(action) {
+      await new Promise(resolve => {
+        elems.scanlines.style.animationPlayState = "paused";
+
+        requestAnimationFrame(() => {
+          blurTransition({
+            initialValue: 0,
+            finalValue: 20,
+            elem: elems.main,
+            step: 4,
+            callback: () => {
+              resolve();
+            }
+          });
+        });
+      });
+
+      action();
+
+      await new Promise(resolve => {
+        requestAnimationFrame(() => {
+          blurTransition({
+            initialValue: 20,
+            finalValue: 0,
+            elem: elems.main,
+            step: 4,
+            callback: () => {
+              elems.scanlines.style.animationPlayState = "";
+              resolve();
+            }
+          });
+        });
+      });
+    }
+
+    function cycleColor(color) {
+      const hoc = color ? requestAnimationFrame : transitionManager;
+
+      hoc(() => {
+        elems.main.classList.remove(globalState.textColor);
+
+        const nextColorIndex = (constants.textColor.indexOf(globalState.textColor) + 1) % (constants.textColor.length);
+
+        globalState.textColor = color || constants.textColor[nextColorIndex];
+        elems.main.classList.add(globalState.textColor);
+        elems.textColorButton.textContent = "[" + globalState.textColor + "]";
+
+        if (localStorage) localStorage.setItem("textColor", globalState.textColor);
+      });
+    }
+
+    function toggleRadio() {
+      transitionManager(() => {
+        if (globalState.radio) {
+          elems.radioAudio.pause();
+        } else {
+          startRadio();
+        }
+
+        globalState.radio = !globalState.radio;
+        elems.radioButton.textContent = "[" + (globalState.radio ? "Enabled" : "Disabled") + "]";
+      });
+    }
+
+    function startHum() {
+      if (!elems.humAudio.paused) return;
+
+      elems.humAudio.volume = 0.15;
+      elems.humAudio.loop = true;
+      elems.humAudio.play();
+    }
+
+    function startRadio() {
+      const metadataLoaded = () => {
+        const now = new Date();
+        const then = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
+        const diff = (now.getTime() - then.getTime()) / 1000;
+
+        elems.radioAudio.currentTime = diff % elems.radioAudio.duration;
+        elems.radioAudio.volume = 0.5;
+        elems.radioAudio.loop = true;
+        elems.radioAudio.play();
+      };
+
+      if (elems.radioAudio.readyState < 1) {
+        elems.radioAudio.load();
+        elems.radioAudio.addEventListener("loadedmetadata", metadataLoaded)
+      } else {
+        metadataLoaded();
+      }
+    }
+
+    function addGeneralEventListeners() {
+      Array.from(document.querySelectorAll("button, a")).forEach(elem => {
+        elem.addEventListener("mouseenter", () => {
+          const audio = new Audio(elems.hoverAudio.src);
+          audio.volume = 0.5;
+          audio.play();
+        });
+
+        if (elem.textContent !== "") {
+          elem.addEventListener("click", () => {
+            const audio = new Audio(elems.clickAudio.src);
+            audio.volume = 0.5;
+            audio.play();
+          });
+        }
+      });
+
+      Array.from(document.querySelectorAll("a")).forEach(elem => {
+        elem.addEventListener("click", e => {
+          if (elem.getAttribute("href")[0] !== "#") return;
+
+          e.preventDefault();
+
+          transitionManager(() => {
+            window.location.hash = elem.getAttribute("href");
+          });
+        });
+      });
+
+      window.addEventListener("keydown", e => {
+        if (e.keyCode === 9) {
+          const audio = new Audio(elems.hoverAudio.src);
+          audio.volume = 0.5;
+          audio.play();
+        }
+      });
+    }
+
+    function initBootup() {
+      if (!elems.humAudio.paused) elems.humAudio.pause();
+      if (!elems.radioAudio.paused) elems.radioAudio.pause();
+      if (elems.randoms.textContent !== "") elems.randoms.textContent = "";
+
+      elems.bootupAudio.play();
+
+      const interval = setInterval(() => {
+        requestAnimationFrame(() => {
+          elems.randoms.textContent += Math.random() + " ";
+          elems.main.scrollTop = elems.main.scrollHeight;
+        });
+      }, 40);
+
+      elems.bootupAudio.onended = () => {
+        clearInterval(interval);
+        startHum();
+
+        elems.staticAudio.addEventListener("playing", () => {
+          elems.mainmenuButton.click();
+        });
+
+        elems.staticAudio.play();
+      };
+    }
+
+    function restoreState() {
+      if (!localStorage) return;
+
+      const textColor = localStorage.getItem("textColor");
+
+      if (textColor && constants.textColor.indexOf(textColor) > -1) cycleColor(textColor);
+    }
+
+    window.onload = function () {
+      if (document.querySelector("section:target")) window.location.hash = "";
+
+      addGeneralEventListeners();
+
+      elems.bootupButton.addEventListener("click", initBootup);
+      elems.rebootButton.addEventListener("click", initBootup);
+
+      restoreState();
+
+      requestAnimationFrame(() => {
+        elems.cover.style.display = "none";
+      });
+    }
+  </script>
+</body>
+
+</html>
