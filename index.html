@@ -16,10 +16,10 @@
 
   <style>
     @font-face {
-      font-family: 'Roboto Mono';
-      font-style: normal;
       font-weight: 400;
-      src: local('Roboto Mono'), local('RobotoMono-Regular'), url('Roboto-Mono-Regular.woff2') format('woff2');
+      font-style: normal;
+      font-family: "Roboto Mono";
+      src: local("Roboto Mono"), local("RobotoMono-Regular"), url("Roboto-Mono-Regular.woff2") format("woff2");
     }
 
     html {
@@ -28,6 +28,8 @@
       letter-spacing: 1px;
       font-size: 1.25em;
       font-family: "Roboto Mono", monospace;
+      width: 100%;
+      height: 100%;
     }
 
     body {
@@ -44,16 +46,17 @@
 
     main {
       position: relative;
-      overflow-x: hidden;
       overflow-y: auto;
       box-sizing: border-box;
-      margin-left: 9vw;
-      padding: 0 9vw 0 0.25em;
-      width: 90vw;
-      height: 100vh;
+      margin-left: 8vw;
+      padding: 0 9vw 0 calc(1vw + 0.25em);
+      width: 91vw;
+      height: 100%;
       color: #2ff97e;
       text-shadow: 0.25em 0.25em 1em #86e789, 0 0 1px rgba(134, 231, 137, 0.7);
       transform: skew(-1deg, -1deg);
+
+      will-change: text-shadow;
     }
 
     .Cyan {
@@ -96,8 +99,8 @@
     p,
     ul {
       margin: 0 0 1.5em 0;
-      font-size: 1em;
       font-weight: normal;
+      font-size: 1em;
     }
 
     ul {
@@ -178,13 +181,13 @@
     }
 
     .monitor {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       z-index: 1;
       overflow: hidden;
       width: 100%;
-      height: 100%;
+      height: 101%;
       background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 50%, rgba(120, 120, 120, 0.1) 0) 0 0/100% 4px repeat-y;
       pointer-events: none;
     }
@@ -291,8 +294,8 @@
 
       <h2>*** TERMINAL SETTINGS ***</h2>
       <ul>
-        <li><span>Radio:</span><span><button class="radioButton" onclick="toggleRadio()">[Disabled]</button></span></li>
-        <li><span>Text Color:</span><span><button class="textColorButton" onclick="cycleColor()">[Lime]</button></span></li>
+        <li><span>Radio:</span><span><button class="radioButton">[Disabled]</button></span></li>
+        <li><span>Text Color:</span><span><button class="textColorButton">[Lime]</button></span></li>
       </ul>
       <br />
 
@@ -383,13 +386,15 @@
         <li><a class="bootupButton" href="#bootup">[Confirm]</a></li>
       </ul>
       <br />
+      <br />
+
       <p>
         *** Keyboard users, use TAB for next, SHIFT+TAB for previous, UP and DOWN arrow keys to scroll and ENTER to COMFIRM ***
       </p>
+      <br />
     </section>
-
-    <div class="cover" role="presentation"></div>
   </main>
+  <div class="cover" role="presentation"></div>
 
   <audio class="clickAudio" src="https://hugeassets.imfast.io/fallout-resume/click.mp3" type="audio/mpeg" preload=""></audio>
   <audio class="hoverAudio" src="https://hugeassets.imfast.io/fallout-resume/hover.mp3" type="audio/mpeg" preload=""></audio>
@@ -401,7 +406,12 @@
 
   <script>
     const constants = {
-      textColor: ["Lime", "Cyan", "White"]
+      textColor: ["Lime", "Cyan", "White"],
+      textColorValue: {
+        Lime: "#2ff97e",
+        Cyan: "cyan",
+        White: "white"
+      }
     };
 
     const elems = {
@@ -429,7 +439,8 @@
     };
 
     const globalState = {
-      textColor: constants.textColor[0]
+      textColor: constants.textColor[0],
+      processing: false
     };
 
     function blurTransition(options) {
@@ -449,16 +460,21 @@
       options.value += finalValue > initialValue ? step : -step;
       options.value = Math.max(options.value, 0);
 
-      const brightnessValue = 1 - options.value / options.finalValue / 2;
-
-      elem.style.filter = options.value ? "blur(" + options.value + "px) brightness(" + brightnessValue + ")" : "";
+      elem.style.textShadow = options.value ? "0 0 " + options.value + "px " + constants.textColorValue[globalState.textColor] : "";
 
       requestAnimationFrame(() => { blurTransition(options); });
     }
 
-    async function transitionManager(action) {
+    async function transitionManager(action, target) {
+      if (globalState.processing) return;
+
+      globalState.processing = true;
+
       await new Promise(resolve => {
         elems.scanlines.style.animationPlayState = "paused";
+        elems.main.style.color = "transparent";
+
+        if (target) target.style.opacity = "0";
 
         requestAnimationFrame(() => {
           blurTransition({
@@ -484,14 +500,20 @@
             step: 4,
             callback: () => {
               elems.scanlines.style.animationPlayState = "";
+              elems.main.style.color = "";
+
+              if (target) target.style.opacity = "";
+
               resolve();
             }
           });
         });
       });
+
+      globalState.processing = false;
     }
 
-    function cycleColor(color) {
+    function cycleColor(e, color) {
       const hoc = color ? requestAnimationFrame : transitionManager;
 
       hoc(() => {
@@ -504,7 +526,7 @@
         elems.textColorButton.textContent = "[" + globalState.textColor + "]";
 
         if (localStorage) localStorage.setItem("textColor", globalState.textColor);
-      });
+      }, e ? e.target : null);
     }
 
     function toggleRadio() {
@@ -573,9 +595,12 @@
 
           transitionManager(() => {
             window.location.hash = elem.getAttribute("href");
-          });
+          }, e.target);
         });
       });
+
+      elems.radioButton.addEventListener("click", toggleRadio);
+      elems.textColorButton.addEventListener("click", cycleColor);
 
       window.addEventListener("keydown", e => {
         if (e.keyCode === 9) {
@@ -589,26 +614,33 @@
     function initBootup() {
       if (!elems.humAudio.paused) elems.humAudio.pause();
       if (!elems.radioAudio.paused) elems.radioAudio.pause();
-      if (elems.randoms.textContent !== "") elems.randoms.textContent = "";
+      if (elems.randoms.innerHTML !== "") elems.randoms.innerHTML = "";
 
       elems.bootupAudio.play();
 
       const interval = setInterval(() => {
         requestAnimationFrame(() => {
-          elems.randoms.textContent += Math.random() + " ";
+          const span = document.createElement("span");
+
+          span.textContent += Math.random() + " ";
+
+          elems.randoms.appendChild(span);
           elems.main.scrollTop = elems.main.scrollHeight;
         });
       }, 40);
 
       elems.bootupAudio.onended = () => {
         clearInterval(interval);
-        startHum();
 
-        elems.staticAudio.addEventListener("playing", () => {
-          elems.mainmenuButton.click();
+        requestAnimationFrame(() => {
+          startHum();
+
+          elems.staticAudio.addEventListener("playing", () => {
+            elems.mainmenuButton.click();
+          });
+
+          elems.staticAudio.play();
         });
-
-        elems.staticAudio.play();
       };
     }
 
@@ -617,7 +649,7 @@
 
       const textColor = localStorage.getItem("textColor");
 
-      if (textColor && constants.textColor.indexOf(textColor) > -1) cycleColor(textColor);
+      if (textColor && constants.textColor.indexOf(textColor) > -1) cycleColor(null, textColor);
     }
 
     window.onload = function () {
@@ -625,8 +657,12 @@
 
       addGeneralEventListeners();
 
-      elems.bootupButton.addEventListener("click", initBootup);
-      elems.rebootButton.addEventListener("click", initBootup);
+      elems.bootupButton.addEventListener("click", () => {
+        requestAnimationFrame(initBootup);
+      });
+      elems.rebootButton.addEventListener("click", () => {
+        requestAnimationFrame(initBootup);
+      });
 
       restoreState();
 
