@@ -24,12 +24,12 @@
 
     html {
       overflow: hidden;
+      width: 100%;
+      height: 100%;
       background: #1a1a1a;
       letter-spacing: 1px;
       font-size: 1.25em;
       font-family: "Roboto Mono", monospace;
-      width: 100%;
-      height: 100%;
     }
 
     body {
@@ -52,37 +52,13 @@
       padding: 0 9vw 0 calc(1vw + 0.25em);
       width: 91vw;
       height: 100%;
-      color: #2ff97e;
-      text-shadow: 0.25em 0.25em 1em #86e789, 0 0 1px rgba(134, 231, 137, 0.7);
       transform: skew(-1deg, -1deg);
-
-      will-change: text-shadow;
-    }
-
-    .Cyan {
-      color: cyan;
-      text-shadow: 0.25em 0.25em 1em darkcyan, 0 0 1px lightcyan;
-    }
-
-    .White {
-      color: white;
-      text-shadow: 0.25em 0.25em 1em gray, 0 0 1px rgba(255, 255, 255, 0.7);
     }
 
     section {
+      position: relative;
       display: none;
-    }
-
-    section:before {
-      display: block;
-      padding-top: 11vh;
-      content: "";
-    }
-
-    section:after {
-      display: block;
-      padding-top: 11vh;
-      content: "";
+      padding: 11vh 0;
     }
 
     section:target,
@@ -151,26 +127,8 @@
     a:focus,
     button:hover,
     button:focus {
-      background: #00ff64;
-      box-shadow: 0 0 0.5em #86e789;
       color: black;
       text-shadow: 0 0 1px rgba(0, 0, 0, 0.7);
-    }
-
-    .Cyan a:hover,
-    .Cyan a:focus,
-    .Cyan button:hover,
-    .Cyan button:focus {
-      background: cyan;
-      box-shadow: 0 0 0.5em darkcyan;
-    }
-
-    .White a:hover,
-    .White a:focus,
-    .White button:hover,
-    .White button:focus {
-      background: white;
-      box-shadow: 0 0 0.5em gray;
     }
 
     a:focus,
@@ -226,6 +184,147 @@
       white-space: nowrap;
     }
 
+    .Lime {
+      color: #2ff97e;
+      text-shadow: 0.25em 0.25em 1em #86e789, 0 0 1px rgba(134, 231, 137, 0.7);
+    }
+
+    .Lime .blur-4 {
+      color: transparent;
+      text-shadow: 0 0 0.25em #2ff97e;
+    }
+
+    .Lime .blur-8 {
+      color: transparent;
+      text-shadow: 0 0 0.5em #2ff97e;
+    }
+
+    .Lime .blur-12 {
+      color: transparent;
+      text-shadow: 0 0 0.75em #2ff97e;
+    }
+
+    .Lime .blur-16 {
+      color: transparent;
+      text-shadow: 0 0 1em #2ff97e;
+    }
+
+    .Lime .blur-20 {
+      color: transparent;
+      text-shadow: 0 0 1.25em #2ff97e;
+    }
+
+    .Cyan {
+      color: cyan;
+      text-shadow: 0.25em 0.25em 1em darkcyan, 0 0 1px lightcyan;
+    }
+
+    .Cyan .blur-4 {
+      color: transparent;
+      text-shadow: 0 0 0.25em cyan;
+    }
+
+    .Cyan .blur-8 {
+      color: transparent;
+      text-shadow: 0 0 0.5em cyan;
+    }
+
+    .Cyan .blur-12 {
+      color: transparent;
+      text-shadow: 0 0 0.75em cyan;
+    }
+
+    .Cyan .blur-16 {
+      color: transparent;
+      text-shadow: 0 0 1em cyan;
+    }
+
+    .Cyan .blur-20 {
+      color: transparent;
+      text-shadow: 0 0 1.25em cyan;
+    }
+
+    .White {
+      color: white;
+      text-shadow: 0.25em 0.25em 1em gray, 0 0 1px rgba(255, 255, 255, 0.7);
+    }
+
+    .White .blur-4 {
+      color: transparent;
+      text-shadow: 0 0 0.25em white;
+    }
+
+    .White .blur-8 {
+      color: transparent;
+      text-shadow: 0 0 0.5em white;
+    }
+
+    .White .blur-12 {
+      color: transparent;
+      text-shadow: 0 0 0.75em white;
+    }
+
+    .White .blur-16 {
+      color: transparent;
+      text-shadow: 0 0 1em white;
+    }
+
+    .White .blur-20 {
+      color: transparent;
+      text-shadow: 0 0 1.25em white;
+    }
+
+    .Lime a:hover,
+    .Lime a:focus,
+    .Lime button:hover,
+    .Lime button:focus {
+      background: #2ff97e;
+      box-shadow: 0 0 0.5em #86e789;
+    }
+
+    .Cyan a:hover,
+    .Cyan a:focus,
+    .Cyan button:hover,
+    .Cyan button:focus {
+      background: cyan;
+      box-shadow: 0 0 0.5em darkcyan;
+    }
+
+    .White a:hover,
+    .White a:focus,
+    .White button:hover,
+    .White button:focus {
+      background: white;
+      box-shadow: 0 0 0.5em gray;
+    }
+
+    div[class*="blur"] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 11vh 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    div[class*="blur"]:before {
+      position: absolute;
+      top: 0;
+      left: calc(-0.25em - 1vw);
+      width: calc(100% + 0.5em + 2vw);
+      height: 100%;
+      background: #1a1a1a;
+      content: "";
+      z-index: -1;
+    }
+
+    .show-if-no-js {
+      display: none;
+    }
+
     @keyframes move-down {
       0% {
         transform: translateY(-100%);
@@ -237,6 +336,18 @@
     }
 
   </style>
+  <noscript>
+    <style>
+      .show-if-no-js {
+        display: initial;
+      }
+
+      .hide-if-no-js {
+        display: none;
+      }
+
+    </style>
+  </noscript>
 </head>
 
 <body>
@@ -251,7 +362,9 @@
 
       <p class="randoms"></p>
 
-      <a class="mainmenuButton" href="#mainmenu"></a>
+      <ul class="show-if-no-js">
+        <li><a class="mainmenuButton" href="#mainmenu">[Continue]</a></li>
+      </ul>
     </section>
 
     <section id="mainmenu">
@@ -391,10 +504,13 @@
       <p>
         *** Keyboard users, use TAB for next, SHIFT+TAB for previous, UP and DOWN arrow keys to scroll and ENTER to COMFIRM ***
       </p>
+      <p>
+        *** This webpage is usable without JavaScript but some non-essential features will cease to work ***
+      </p>
       <br />
     </section>
   </main>
-  <div class="cover" role="presentation"></div>
+  <div class="cover hide-if-no-js" role="presentation"></div>
 
   <audio class="clickAudio" src="https://hugeassets.imfast.io/fallout-resume/click.mp3" type="audio/mpeg" preload=""></audio>
   <audio class="hoverAudio" src="https://hugeassets.imfast.io/fallout-resume/hover.mp3" type="audio/mpeg" preload=""></audio>
@@ -411,7 +527,9 @@
         Lime: "#2ff97e",
         Cyan: "cyan",
         White: "white"
-      }
+      },
+      blurValues: [4, 8, 12, 16, 20],
+      blurStep: 4
     };
 
     const elems = {
@@ -445,7 +563,7 @@
 
     function blurTransition(options) {
       const {
-        elem, initialValue, finalValue, step, callback
+        elem, initialValue, finalValue, callback
       } = options;
 
       if (options.value == null) options.value = initialValue;
@@ -457,31 +575,33 @@
       )
         return callback && callback();
 
-      options.value += finalValue > initialValue ? step : -step;
+      options.value += finalValue > initialValue ? constants.blurStep : -constants.blurStep;
       options.value = Math.max(options.value, 0);
 
-      elem.style.textShadow = options.value ? "0 0 " + options.value + "px " + constants.textColorValue[globalState.textColor] : "";
+      Array.from(elem.querySelectorAll("div[class*='blur']")).forEach(elem => {
+        if (elem.className !== globalState.textColor + " blur-" + options.value) {
+          elem.style.opacity = "";
+        } else {
+          elem.style.opacity = "1";
+        }
+      });
 
       requestAnimationFrame(() => { blurTransition(options); });
     }
 
-    async function transitionManager(action, target) {
+    async function transitionManager(action) {
       if (globalState.processing) return;
 
       globalState.processing = true;
 
       await new Promise(resolve => {
         elems.scanlines.style.animationPlayState = "paused";
-        elems.main.style.color = "transparent";
-
-        if (target) target.style.opacity = "0";
 
         requestAnimationFrame(() => {
           blurTransition({
             initialValue: 0,
             finalValue: 20,
             elem: elems.main,
-            step: 4,
             callback: () => {
               resolve();
             }
@@ -497,12 +617,8 @@
             initialValue: 20,
             finalValue: 0,
             elem: elems.main,
-            step: 4,
             callback: () => {
               elems.scanlines.style.animationPlayState = "";
-              elems.main.style.color = "";
-
-              if (target) target.style.opacity = "";
 
               resolve();
             }
@@ -526,7 +642,7 @@
         elems.textColorButton.textContent = "[" + globalState.textColor + "]";
 
         if (localStorage) localStorage.setItem("textColor", globalState.textColor);
-      }, e ? e.target : null);
+      });
     }
 
     function toggleRadio() {
@@ -564,7 +680,7 @@
 
       if (elems.radioAudio.readyState < 1) {
         elems.radioAudio.load();
-        elems.radioAudio.addEventListener("loadedmetadata", metadataLoaded)
+        elems.radioAudio.onloadedmetadata = metadataLoaded;
       } else {
         metadataLoaded();
       }
@@ -595,7 +711,7 @@
 
           transitionManager(() => {
             window.location.hash = elem.getAttribute("href");
-          }, e.target);
+          });
         });
       });
 
@@ -612,8 +728,13 @@
     }
 
     function initBootup() {
+      let radioWasOn = false;
+
       if (!elems.humAudio.paused) elems.humAudio.pause();
-      if (!elems.radioAudio.paused) elems.radioAudio.pause();
+      if (!elems.radioAudio.paused) {
+        elems.radioAudio.pause();
+        radioWasOn = true;
+      }
       if (elems.randoms.innerHTML !== "") elems.randoms.innerHTML = "";
 
       elems.bootupAudio.play();
@@ -635,9 +756,13 @@
         requestAnimationFrame(() => {
           startHum();
 
-          elems.staticAudio.addEventListener("playing", () => {
+          elems.staticAudio.onplaying = () => {
             elems.mainmenuButton.click();
-          });
+          }
+
+          elems.staticAudio.onended = radioWasOn ? () => {
+            elems.radioAudio.play();
+          } : null;
 
           elems.staticAudio.play();
         });
@@ -650,6 +775,32 @@
       const textColor = localStorage.getItem("textColor");
 
       if (textColor && constants.textColor.indexOf(textColor) > -1) cycleColor(null, textColor);
+    }
+
+    function createBlurState() {
+      const sections = Array.from(document.getElementsByTagName("section"));
+
+      sections.forEach(section => {
+        const content = section.innerHTML;
+
+        constants.blurValues.forEach(value => {
+          constants.textColor.forEach(color => {
+            const div = document.createElement("div");
+
+            div.className = color + " blur-" + value;
+            div.setAttribute("role", "presentation");
+            div.setAttribute("aria-hidden", "true");
+            div.innerHTML = content;
+
+            Array.from(div.querySelectorAll("a, button")).forEach(elem => {
+              elem.setAttribute("aria-hidden", "true");
+              elem.setAttribute("tabindex", "-1");
+            });
+
+            section.appendChild(div);
+          });
+        });
+      });
     }
 
     window.onload = function () {
@@ -665,6 +816,7 @@
       });
 
       restoreState();
+      createBlurState();
 
       requestAnimationFrame(() => {
         elems.cover.style.display = "none";
