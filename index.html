@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
 
   <title>Fallout Resume - Jia Liang</title>
 
@@ -21,6 +21,8 @@
       font-family: "Roboto Mono";
       src: local("Roboto Mono"), local("RobotoMono-Regular"), url("Roboto-Mono-Regular.woff2") format("woff2");
     }
+
+    /* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.26, autoprefixer: v9.7.3) */
 
     html {
       overflow: hidden;
@@ -46,28 +48,32 @@
 
     main {
       position: relative;
-      overflow-y: auto;
-      box-sizing: border-box;
-      margin-left: 8vw;
-      padding: 0 9vw 0 calc(1vw + 0.25em);
-      width: 91vw;
+      width: 100%;
       height: 100%;
+      -webkit-transform: skew(-1deg, -1deg);
       transform: skew(-1deg, -1deg);
     }
 
     section {
-      position: relative;
-      display: none;
-      padding: 11vh 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      visibility: hidden;
+      overflow-y: auto;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      padding: 11vh 9vw;
+      width: 100%;
+      height: 100%;
     }
 
     section:target,
     #start {
-      display: block;
+      visibility: visible;
     }
 
     section:target~#start {
-      display: none;
+      visibility: hidden;
     }
 
     h1,
@@ -146,6 +152,7 @@
       overflow: hidden;
       width: 100%;
       height: 101%;
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(50%, rgba(0, 0, 0, 0.2)), color-stop(0, rgba(120, 120, 120, 0.1))) 0 0/100% 4px repeat-y;
       background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 50%, rgba(120, 120, 120, 0.1) 0) 0 0/100% 4px repeat-y;
       pointer-events: none;
     }
@@ -158,6 +165,7 @@
       width: 100%;
       height: 100%;
       background: rgba(0, 0, 0, 0.1);
+      -webkit-animation: 8s move-down linear infinite;
       animation: 8s move-down linear infinite;
     }
 
@@ -279,6 +287,7 @@
     .Lime button:hover,
     .Lime button:focus {
       background: #2ff97e;
+      -webkit-box-shadow: 0 0 0.5em #86e789;
       box-shadow: 0 0 0.5em #86e789;
     }
 
@@ -287,6 +296,7 @@
     .Cyan button:hover,
     .Cyan button:focus {
       background: cyan;
+      -webkit-box-shadow: 0 0 0.5em darkcyan;
       box-shadow: 0 0 0.5em darkcyan;
     }
 
@@ -295,6 +305,7 @@
     .White button:hover,
     .White button:focus {
       background: white;
+      -webkit-box-shadow: 0 0 0.5em gray;
       box-shadow: 0 0 0.5em gray;
     }
 
@@ -302,35 +313,40 @@
       position: absolute;
       top: 0;
       left: 0;
-      padding: 11vh 0;
+      z-index: 1;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      padding: 11vh 9vw;
       width: 100%;
-      height: 100%;
+      background: #1a1a1a;
       opacity: 0;
       pointer-events: none;
-      z-index: 1;
-    }
-
-    div[class*="blur"]:before {
-      position: absolute;
-      top: 0;
-      left: calc(-0.25em - 1vw);
-      width: calc(100% + 0.5em + 2vw);
-      height: 100%;
-      background: #1a1a1a;
-      content: "";
-      z-index: -1;
     }
 
     .show-if-no-js {
       display: none;
     }
 
-    @keyframes move-down {
+    @-webkit-keyframes move-down {
       0% {
+        -webkit-transform: translateY(-100%);
         transform: translateY(-100%);
       }
 
       100% {
+        -webkit-transform: translateY(100%);
+        transform: translateY(100%);
+      }
+    }
+
+    @keyframes move-down {
+      0% {
+        -webkit-transform: translateY(-100%);
+        transform: translateY(-100%);
+      }
+
+      100% {
+        -webkit-transform: translateY(100%);
         transform: translateY(100%);
       }
     }
@@ -355,15 +371,16 @@
     <div class="scanlines"></div>
     <div class="frame"></div>
   </div>
+
   <main class="Lime">
-    <section id="bootup" role="presentation">
+    <section id="bootup">
       <h1>Initializing system...</h1>
       <br />
 
       <p class="randoms"></p>
 
       <ul class="show-if-no-js">
-        <li><a class="mainmenuButton" href="#mainmenu">[Continue]</a></li>
+        <li><a class="mainmenuButton silent" href="#mainmenu">[Continue]</a></li>
       </ul>
     </section>
 
@@ -377,35 +394,33 @@
       </ul>
       <br />
 
-      <p class="single-line">&lt;--- Start of File ---&gt;</p>
-      <br />
-
-      <h2>SUBJECT DETAILS:<br />================</h2>
       <ul>
-        <li><span>Name:</span><span>Ho Jia Liang</span></li>
-        <li><span>Designation:</span><span>Software Engineer</span></li>
-        <li><span>Location:</span><span>Singapore, Singapore</span></li>
-        <li><span>Website:</span><span>jialiang.<wbr />github.io</span></li>
-        <li><span>E-mail Address:</span><span>hojialiang<wbr />@yahoo.com</span></li>
-        <li><span>Phone Number:</span><span>REDACTED - Please refer to provided supple&shy;mentary materials</span></li>
-        <li><span>Status:</span><span>ACTIVE</span></li>
-      </ul>
-      <br />
-
-      <h2>SUBJECT INFORMATION:<br />====================</h2>
-      <ul>
+        <li><a href="#info">[Personal Information]</a></li>
         <li><a href="#work">[Work Experience]</a></li>
         <li><a href="#skills">[Technical Skills]</a></li>
         <li><a href="#projects">[Personal Projects]</a></li>
         <li><a href="#education">[Tertiary Education]</a></li>
       </ul>
       <br />
-
-      <p class="single-line">&lt;--- End of File ---&gt;</p>
-      <br />
       <br />
 
-      <h2>*** TERMINAL SETTINGS ***</h2>
+      <ul>
+        <li><a href="#config">[Terminal Configuration]</a></li>
+      </ul>
+      <br />
+
+    </section>
+
+    <section id="config">
+      <h1>Welcome to ROBCO Industries (TM) Termlink</h1>
+      <br />
+
+      <h2>
+        Terminal Configuration
+        <br />
+        <span class="single-line" role="presentation">======================</span>
+      </h2>
+
       <ul>
         <li><span>Radio:</span><span><button class="radioButton">[Disabled]</button></span></li>
         <li><span>Text Color:</span><span><button class="textColorButton">[Lime]</button></span></li>
@@ -418,6 +433,37 @@
       </ul>
       <br />
 
+      <ul>
+        <li><a href="#mainmenu">[Back]</a></li>
+      </ul>
+      <br />
+    </section>
+
+    <section id="info">
+      <h1>Welcome to ROBCO Industries (TM) Termlink</h1>
+      <br />
+
+      <h2>
+        Personal Information
+        <br />
+        <span class="single-line" role="presentation">====================</span>
+      </h2>
+
+      <ul>
+        <li><span>Name:</span><span>Ho Jia Liang</span></li>
+        <li><span>Designation:</span><span>Software Engineer</span></li>
+        <li><span>Location:</span><span>Singapore, Singapore</span></li>
+        <li><span>Website:</span><span>jialiang.<wbr />github.io</span></li>
+        <li><span>E-mail Address:</span><span>hojialiang<wbr />@yahoo.com</span></li>
+        <li><span>Phone Number:</span><span>REDACTED - Please refer to provided supple&shy;mentary materials</span></li>
+        <li><span>Status:</span><span>ACTIVE</span></li>
+      </ul>
+      <br />
+
+      <ul>
+        <li><a href="#mainmenu">[Back]</a></li>
+      </ul>
+      <br />
     </section>
 
     <section id="work">
@@ -488,7 +534,7 @@
       <br />
 
       <ul>
-        <li><a href="#mainmenu">[Back]</a></li>
+        <li><a href="#config">[Back]</a></li>
       </ul>
       <br />
     </section>
@@ -535,6 +581,7 @@
     const elems = {
       main: document.getElementsByTagName("main")[0],
       scanlines: document.getElementsByClassName("scanlines")[0],
+      bootupSection: document.getElementById("bootup"),
 
       radioButton: document.getElementsByClassName("radioButton")[0],
       textColorButton: document.getElementsByClassName("textColorButton")[0],
@@ -553,11 +600,13 @@
       staticAudio: document.getElementsByClassName("staticAudio")[0],
       radioAudio: document.getElementsByClassName("diamondCityRadio")[0],
 
-      cover: document.getElementsByClassName("cover")[0]
+      cover: document.getElementsByClassName("cover")[0],
+      blurs: {}
     };
 
     const globalState = {
       textColor: constants.textColor[0],
+      radio: false,
       processing: false
     };
 
@@ -567,20 +616,13 @@
       } = options;
 
       if (options.value == null) options.value = initialValue;
-
-      if (
-        (options.value === finalValue) ||
-        (options.value > finalValue && options.value > initialValue) ||
-        (options.value < finalValue && options.value < initialValue)
-      )
-        return callback && callback();
+      if (options.value === finalValue) return callback && callback();
 
       options.value += finalValue > initialValue ? constants.blurStep : -constants.blurStep;
-      options.value = Math.max(options.value, 0);
 
-      Array.from(elem.querySelectorAll("div[class*='blur']")).forEach(elem => {
+      elems.blurs[elem.id].forEach(elem => {
         if (elem.className !== globalState.textColor + " blur-" + options.value) {
-          elem.style.opacity = "";
+          if (elem.style.opacity !== "") elem.style.opacity = "";
         } else {
           elem.style.opacity = "1";
         }
@@ -589,22 +631,18 @@
       requestAnimationFrame(() => { blurTransition(options); });
     }
 
-    async function transitionManager(action) {
+    async function transitionManager(action, postAction) {
       if (globalState.processing) return;
 
       globalState.processing = true;
 
       await new Promise(resolve => {
-        elems.scanlines.style.animationPlayState = "paused";
-
         requestAnimationFrame(() => {
           blurTransition({
             initialValue: 0,
             finalValue: 20,
-            elem: elems.main,
-            callback: () => {
-              resolve();
-            }
+            elem: document.querySelector("section:target") || document.getElementById("start"),
+            callback: resolve
           });
         });
       });
@@ -616,15 +654,13 @@
           blurTransition({
             initialValue: 20,
             finalValue: 0,
-            elem: elems.main,
-            callback: () => {
-              elems.scanlines.style.animationPlayState = "";
-
-              resolve();
-            }
+            elem: document.querySelector("section:target") || document.getElementById("start"),
+            callback: resolve
           });
         });
       });
+
+      if (postAction) postAction();
 
       globalState.processing = false;
     }
@@ -645,8 +681,10 @@
       });
     }
 
-    function toggleRadio() {
-      transitionManager(() => {
+    function toggleRadio(e, noTransition) {
+      const hoc = noTransition ? requestAnimationFrame : transitionManager;
+
+      hoc(() => {
         if (globalState.radio) {
           elems.radioAudio.pause();
         } else {
@@ -654,6 +692,9 @@
         }
 
         globalState.radio = !globalState.radio;
+
+        if (localStorage) localStorage.setItem("radio", globalState.radio);
+
         elems.radioButton.textContent = "[" + (globalState.radio ? "Enabled" : "Disabled") + "]";
       });
     }
@@ -662,7 +703,6 @@
       if (!elems.humAudio.paused) return;
 
       elems.humAudio.volume = 0.15;
-      elems.humAudio.loop = true;
       elems.humAudio.play();
     }
 
@@ -694,7 +734,7 @@
           audio.play();
         });
 
-        if (elem.textContent !== "") {
+        if (!elem.classList.contains("silent")) {
           elem.addEventListener("click", () => {
             const audio = new Audio(elems.clickAudio.src);
             audio.volume = 0.5;
@@ -709,9 +749,13 @@
 
           e.preventDefault();
 
+          let afterTransition = null;
+
+          if (elem.getAttribute("href") === "#bootup") afterTransition = initBootup;
+
           transitionManager(() => {
             window.location.hash = elem.getAttribute("href");
-          });
+          }, afterTransition);
         });
       });
 
@@ -728,13 +772,10 @@
     }
 
     function initBootup() {
-      let radioWasOn = false;
+      const wasRadioOn = globalState.radio;
 
       if (!elems.humAudio.paused) elems.humAudio.pause();
-      if (!elems.radioAudio.paused) {
-        elems.radioAudio.pause();
-        radioWasOn = true;
-      }
+      if (globalState.radio) toggleRadio(null, true);
       if (elems.randoms.innerHTML !== "") elems.randoms.innerHTML = "";
 
       elems.bootupAudio.play();
@@ -746,22 +787,24 @@
           span.textContent += Math.random() + " ";
 
           elems.randoms.appendChild(span);
-          elems.main.scrollTop = elems.main.scrollHeight;
+          elems.bootupSection.scrollTop = elems.bootupSection.scrollHeight;
         });
-      }, 40);
+      }, 100);
 
       elems.bootupAudio.onended = () => {
         clearInterval(interval);
 
         requestAnimationFrame(() => {
+          elems.randoms.innerHTML = "";
+
           startHum();
 
           elems.staticAudio.onplaying = () => {
             elems.mainmenuButton.click();
           }
 
-          elems.staticAudio.onended = radioWasOn ? () => {
-            elems.radioAudio.play();
+          elems.staticAudio.onended = wasRadioOn ? () => {
+            toggleRadio(null, true);
           } : null;
 
           elems.staticAudio.play();
@@ -773,8 +816,10 @@
       if (!localStorage) return;
 
       const textColor = localStorage.getItem("textColor");
+      const radio = localStorage.getItem("radio");
 
       if (textColor && constants.textColor.indexOf(textColor) > -1) cycleColor(null, textColor);
+      if (radio === "true") globalState.radio = true;
     }
 
     function createBlurState() {
@@ -783,7 +828,7 @@
       sections.forEach(section => {
         const content = section.innerHTML;
 
-        constants.blurValues.forEach(value => {
+        constants.blurValues.forEach((value, index) => {
           constants.textColor.forEach(color => {
             const div = document.createElement("div");
 
@@ -792,12 +837,20 @@
             div.setAttribute("aria-hidden", "true");
             div.innerHTML = content;
 
+            if (index === constants.blurValues.length - 1 && section.id !== "start") {
+              div.style.opacity = "1";
+            }
+
             Array.from(div.querySelectorAll("a, button")).forEach(elem => {
               elem.setAttribute("aria-hidden", "true");
               elem.setAttribute("tabindex", "-1");
             });
 
             section.appendChild(div);
+
+            if (elems.blurs[section.id] == null) elems.blurs[section.id] = [];
+
+            elems.blurs[section.id].push(div);
           });
         });
       });
@@ -807,13 +860,6 @@
       if (document.querySelector("section:target")) window.location.hash = "";
 
       addGeneralEventListeners();
-
-      elems.bootupButton.addEventListener("click", () => {
-        requestAnimationFrame(initBootup);
-      });
-      elems.rebootButton.addEventListener("click", () => {
-        requestAnimationFrame(initBootup);
-      });
 
       restoreState();
       createBlurState();
