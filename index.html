@@ -252,6 +252,36 @@
       text-shadow: 0 0 1.25em cyan;
     }
 
+    .Orange {
+      color: orange;
+      text-shadow: 0.25em 0.25em 1em #8a5a00, 0 0 1px #fff4e0;
+    }
+
+    .Orange .blur-4 {
+      color: transparent;
+      text-shadow: 0 0 0.25em orange;
+    }
+
+    .Orange .blur-8 {
+      color: transparent;
+      text-shadow: 0 0 0.5em orange;
+    }
+
+    .Orange .blur-12 {
+      color: transparent;
+      text-shadow: 0 0 0.75em orange;
+    }
+
+    .Orange .blur-16 {
+      color: transparent;
+      text-shadow: 0 0 1em #ffa500;
+    }
+
+    .Orange .blur-20 {
+      color: transparent;
+      text-shadow: 0 0 1.25em orange;
+    }
+
     .White {
       color: white;
       text-shadow: 0.25em 0.25em 1em gray, 0 0 1px rgba(255, 255, 255, 0.7);
@@ -298,6 +328,15 @@
       background: cyan;
       -webkit-box-shadow: 0 0 0.5em darkcyan;
       box-shadow: 0 0 0.5em darkcyan;
+    }
+
+    .Orange a:hover,
+    .Orange a:focus,
+    .Orange button:hover,
+    .Orange button:focus {
+      background: orange;
+      -webkit-box-shadow: 0 0 0.5em #8a5a00;
+      box-shadow: 0 0 0.5em #8a5a00;
     }
 
     .White a:hover,
@@ -568,10 +607,11 @@
 
   <script>
     const constants = {
-      textColor: ["Lime", "Cyan", "White"],
+      textColor: ["Lime", "Cyan", "Orange", "White"],
       textColorValue: {
         Lime: "#2ff97e",
         Cyan: "cyan",
+        Orange: "orange",
         White: "white"
       },
       blurValues: [4, 8, 12, 16, 20],
