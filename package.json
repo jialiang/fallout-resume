@@ -1,0 +1,12 @@
+{
+  "name": "fallout-resume",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "prettier": "3.9.10",
+    "prettier-plugin-css-order": "2.2.0"
+  }
+}

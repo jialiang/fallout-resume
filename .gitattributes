@@ -1,0 +1,7 @@
+* text=auto eol=crlf
+
+*.png   binary
+*.woff2 binary
+*.mp3   binary
+*.m4a   binary
+*.flac  binary
