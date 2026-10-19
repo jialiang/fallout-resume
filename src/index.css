@@ -1,0 +1,229 @@
+@import "./blur/index.css";
+
+@font-face {
+  font-style: normal;
+  font-weight: 400;
+  src: url("Roboto-Mono-Regular.woff2") format("woff2");
+  font-family: "Roboto Mono";
+}
+
+html {
+  background: #121212;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-size: 1.25em;
+  font-family: "Roboto Mono", monospace;
+  letter-spacing: 0.05em;
+}
+
+body {
+  position: relative;
+  margin: 0 auto;
+  background: #1a1a1a;
+  width: 100%;
+  max-width: calc(100vh * 4 / 3);
+  /* Browsers without dvh drop this line and keep the vh one above. */
+  max-width: calc(100dvh * 4 / 3);
+  height: 100%;
+}
+
+main {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  color: var(--text);
+  text-shadow:
+    0.25em 0.25em 1em var(--glow),
+    0 0 0.05em var(--edge);
+}
+
+section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  box-sizing: border-box;
+  padding: 11vh 9%;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+
+section:target,
+#start {
+  visibility: visible;
+}
+
+section:target ~ #start {
+  visibility: hidden;
+}
+
+h1,
+h2,
+p,
+ul,
+.randoms {
+  margin: 0 0 1.5em 0;
+  font-weight: normal;
+  font-size: 1em;
+}
+
+h1,
+ul,
+.gap-after {
+  margin-bottom: 2.825em;
+}
+
+.wide-gap-after {
+  margin-bottom: 4.15em;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  margin-bottom: 0.25em;
+  padding: 0.25em 0;
+}
+
+li span:nth-child(1) {
+  flex: none;
+  margin-right: 1em;
+  width: 10em;
+  max-width: 50%;
+}
+
+li span:nth-child(2) {
+  flex: 1;
+  min-width: 0;
+}
+
+li a {
+  flex: 1;
+}
+
+li a,
+li button {
+  cursor: pointer;
+  margin: 0 0 -0.5em -0.25em;
+  border: none;
+  background: transparent;
+  padding: 0.25em 0.25em 0.35em 0.25em;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  text-decoration: inherit;
+  text-shadow: inherit;
+}
+
+a:hover,
+a:focus,
+button:hover,
+button:focus {
+  color: black;
+  text-shadow: 0 0 0.05em rgba(0, 0, 0, 0.7);
+}
+
+a:focus,
+button:focus {
+  outline: none;
+  border: 0;
+}
+
+/* Firefox focuses the section a link points to. */
+section:focus {
+  outline: none;
+}
+
+/* Kept apart: browsers drop a whole rule over a selector they don't know. */
+button::-moz-focus-inner {
+  border: 0;
+}
+
+.monitor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 50%, rgba(120, 120, 120, 0.1) 0) 0
+    0/100% 4px repeat-y;
+  width: 100%;
+  height: 101%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  animation: 8s move-down linear infinite;
+  background: rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 100%;
+}
+
+.frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  background: url(pipboy.png) 0 0/100% 100% no-repeat;
+  width: 100%;
+  height: 100%;
+}
+
+.single-line {
+  white-space: nowrap;
+}
+
+.Lime {
+  --text: #2ff97e;
+  --glow: #86e789;
+  --edge: rgba(134, 231, 137, 0.7);
+}
+
+.Cyan {
+  --text: cyan;
+  --glow: darkcyan;
+  --edge: lightcyan;
+}
+
+.Orange {
+  --text: orange;
+  --glow: #8a5a00;
+  --edge: #fff4e0;
+}
+
+.White {
+  --text: white;
+  --glow: gray;
+  --edge: rgba(255, 255, 255, 0.7);
+}
+
+main a:hover,
+main a:focus,
+main button:hover,
+main button:focus {
+  box-shadow: 0 0 0.5em var(--glow);
+  background: var(--text);
+}
+
+.show-if-no-js {
+  display: none;
+}
+
+@keyframes move-down {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(100%);
+  }
+}

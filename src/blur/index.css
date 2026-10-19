@@ -1,0 +1,33 @@
+div[class*="blur"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  z-index: 1;
+  box-sizing: border-box;
+  background: #1a1a1a;
+  padding: 11vh 9%;
+  width: 100%;
+  pointer-events: none;
+  color: transparent;
+}
+
+.blur-4 {
+  text-shadow: 0 0 0.25em var(--text);
+}
+
+.blur-8 {
+  text-shadow: 0 0 0.5em var(--text);
+}
+
+.blur-12 {
+  text-shadow: 0 0 0.75em var(--text);
+}
+
+.blur-16 {
+  text-shadow: 0 0 1em var(--text);
+}
+
+.blur-20 {
+  text-shadow: 0 0 1.25em var(--text);
+}

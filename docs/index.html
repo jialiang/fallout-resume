@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+
+    <title>Fallout Resume - Jia Liang</title>
+
+    <meta name="description" content="My resume done in the style of a RobCo terminal." />
+    <meta name="author" content="Jia Liang" />
+
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="canonical" href="https://jialiang.github.io/fallout-resume/" />
+    <link rel="preload" as="image" href="pipboy.png" />
+
+    <style>div[class*=blur]{position:absolute;top:0;left:0;opacity:0;z-index:1;box-sizing:border-box;background:#1a1a1a;padding:11vh 9%;width:100%;pointer-events:none;color:transparent}.blur-4{text-shadow:0 0 .25em var(--text)}.blur-8{text-shadow:0 0 .5em var(--text)}.blur-12{text-shadow:0 0 .75em var(--text)}.blur-16{text-shadow:0 0 1em var(--text)}.blur-20{text-shadow:0 0 1.25em var(--text)}@font-face{font-style:normal;font-weight:400;src:url(Roboto-Mono-Regular.woff2) format("woff2");font-family:Roboto Mono}html{background:#121212;width:100%;height:100%;overflow:hidden;font-size:1.25em;font-family:Roboto Mono,monospace;letter-spacing:.05em}body{position:relative;margin:0 auto;background:#1a1a1a;width:100%;max-width:calc(100vh * 4 / 3);max-width:calc(100dvh * 4 / 3);height:100%}main{position:relative;width:100%;height:100%;color:var(--text);text-shadow:.25em .25em 1em var(--glow),0 0 .05em var(--edge)}section{position:absolute;top:0;left:0;visibility:hidden;box-sizing:border-box;padding:11vh 9%;width:100%;height:100%;overflow-y:auto}section:target,#start{visibility:visible}section:target~#start{visibility:hidden}h1,h2,p,ul,.randoms{margin:0 0 1.5em;font-weight:400;font-size:1em}h1,ul,.gap-after{margin-bottom:2.825em}.wide-gap-after{margin-bottom:4.15em}ul{padding:0;list-style:none}li{display:flex;margin-bottom:.25em;padding:.25em 0}li span:nth-child(1){flex:none;margin-right:1em;width:10em;max-width:50%}li span:nth-child(2){flex:1;min-width:0}li a{flex:1}li a,li button{cursor:pointer;margin:0 0 -.5em -.25em;border:none;background:transparent;padding:.25em .25em .35em;color:inherit;font-size:inherit;font-family:inherit;text-decoration:inherit;text-shadow:inherit}a:hover,a:focus,button:hover,button:focus{color:#000;text-shadow:0 0 .05em rgba(0,0,0,.7)}a:focus,button:focus{outline:none;border:0}section:focus{outline:none}button::-moz-focus-inner{border:0}.monitor{position:absolute;top:0;left:0;z-index:1;background:linear-gradient(to bottom,rgba(0,0,0,.2) 50%,rgba(120,120,120,.1) 0) 0 0/100% 4px repeat-y;width:100%;height:101%;overflow:hidden;pointer-events:none}.scanlines{position:absolute;top:0;left:0;z-index:1;animation:8s move-down linear infinite;background:rgba(0,0,0,.1);width:100%;height:100%}.frame{position:absolute;top:0;left:0;z-index:2;background:url(pipboy.png) 0 0/100% 100% no-repeat;width:100%;height:100%}.single-line{white-space:nowrap}.Lime{--text: #2ff97e;--glow: #86e789;--edge: rgba(134, 231, 137, .7)}.Cyan{--text: cyan;--glow: darkcyan;--edge: lightcyan}.Orange{--text: orange;--glow: #8a5a00;--edge: #fff4e0}.White{--text: white;--glow: gray;--edge: rgba(255, 255, 255, .7)}main a:hover,main a:focus,main button:hover,main button:focus{box-shadow:0 0 .5em var(--glow);background:var(--text)}.show-if-no-js{display:none}@keyframes move-down{0%{transform:translateY(-100%)}to{transform:translateY(100%)}}
+</style>
+
+    <noscript>
+      <style>
+        .show-if-no-js {
+          display: initial;
+        }
+      </style>
+    </noscript>
+  </head>
+
+  <body>
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <filter
+        id="fisheye"
+        x="0"
+        y="0"
+        width="100%"
+        height="100%"
+        color-interpolation-filters="sRGB">
+        <feImage class="fisheyeMap" result="map" preserveAspectRatio="none" />
+        <feDisplacementMap
+          class="fisheyeDisplacement"
+          in="SourceGraphic"
+          in2="map"
+          xChannelSelector="R"
+          yChannelSelector="G" />
+      </filter>
+    </svg>
+
+    <div class="monitor" role="presentation">
+      <div class="scanlines"></div>
+      <div class="frame"></div>
+    </div>
+
+    <main class="Lime">
+      <section id="bootup">
+        <h1>Initializing system...</h1>
+
+        <div class="randoms"></div>
+
+        <ul class="show-if-no-js">
+          <li><a class="mainmenuButton" href="#mainmenu">[Continue]</a></li>
+        </ul>
+      </section>
+
+      <section id="mainmenu">
+        <h1>Welcome to ROBCO Industries (TM) Termlink</h1>
+
+        <ul>
+          <li><span>Filename:</span><span>Resume.txt</span></li>
+          <li><span>Last updated:</span><span>19/10/2026</span></li>
+        </ul>
+
+        <ul class="wide-gap-after">
+          <li><a href="#info">[Personal Information]</a></li>
+          <li><a href="#work">[Work Experience]</a></li>
+          <li><a href="#skills">[Technical Skills]</a></li>
+          <li><a href="#projects">[Personal Projects]</a></li>
+          <li><a href="#education">[Tertiary Education]</a></li>
+        </ul>
+
+        <ul>
+          <li><a href="#config">[Terminal Configuration]</a></li>
+        </ul>
+      </section>
+
+      <section id="config">
+        <h1>Welcome to ROBCO Industries (TM) Termlink</h1>
+
+        <h2>
+          Terminal Configuration
+          <br />
+          <span class="single-line" aria-hidden="true">======================</span>
+        </h2>
+
+        <ul>
+          <li>
+            <span>Radio:</span><span><button class="radioButton">[Disabled]</button></span>
+          </li>
+          <li>
+            <span>Text Color:</span><span><button class="textColorButton">[Lime]</button></span>
+          </li>
+        </ul>
+
+        <ul>
+          <li><a href="#about-terminal">[About This Terminal]</a></li>
+          <li><a href="#bootup">[Reboot]</a></li>
+        </ul>
+
+        <ul>
+          <li><a href="#mainmenu">[Back]</a></li>
+        </ul>
+      </section>
+
+      <section id="info">
+        <h1>Welcome to ROBCO Industries (TM) Termlink</h1>
+
+        <h2>
+          Personal Information
+          <br />
+          <span class="single-line" aria-hidden="true">====================</span>
+        </h2>
+
+        <ul>
+          <li><span>Name:</span><span>Ho Jia Liang</span></li>
+          <li><span>Designation:</span><span>Software Engineer</span></li>
+          <li><span>Location:</span><span>Singapore, Singapore</span></li>
+          <li>
+            <span>Website:</span><span>jialiang.<wbr />github.io</span>
+          </li>
+          <li>
+            <span>E-mail Address:</span><span>hojialiang<wbr />@yahoo.com</span>
+          </li>
+          <li>
+            <span>Phone Number:</span
+            ><span>REDACTED - Please refer to provided supple&shy;mentary materials</span>
+          </li>
+          <li><span>Status:</span><span>ACTIVE</span></li>
+        </ul>
+
+        <ul>
+          <li><a href="#mainmenu">[Back]</a></li>
+        </ul>
+      </section>
+
+      <section id="work">
+        <h1>Welcome to ROBCO Industries (TM) Termlink</h1>
+
+        <h2 class="gap-after">Under construction...</h2>
+
+        <ul>
+          <li><a href="#mainmenu">[Back]</a></li>
+        </ul>
+      </section>
+
+      <section id="skills">
+        <h1>Welcome to ROBCO Industries (TM) Termlink</h1>
+
+        <h2 class="gap-after">Under construction...</h2>
+
+        <ul>
+          <li><a href="#mainmenu">[Back]</a></li>
+        </ul>
+      </section>
+
+      <section id="projects">
+        <h1>Welcome to ROBCO Industries (TM) Termlink</h1>
+
+        <h2 class="gap-after">Under construction...</h2>
+
+        <ul>
+          <li><a href="#mainmenu">[Back]</a></li>
+        </ul>
+      </section>
+
+      <section id="education">
+        <h1>Welcome to ROBCO Industries (TM) Termlink</h1>
+
+        <h2 class="gap-after">Under construction...</h2>
+
+        <ul>
+          <li><a href="#mainmenu">[Back]</a></li>
+        </ul>
+      </section>
+
+      <section id="about-terminal">
+        <h1>*** UNIFIED OPERATING SYSTEM(R) V7.1.0.8 ***</h1>
+
+        <p class="gap-after">
+          COPYRIGHT 2075 ROBCO(R)<br />
+          LOADER V1.1<br />
+          EXEC VERSION 41.10<br />
+          64k RAM SYSTEM<br />
+          38911 BYTES FREE<br />
+          NO HOLOTAPE FOUND<br />
+          LOAD ROM(1): DEITRIX 303
+        </p>
+
+        <ul>
+          <li><a href="#config">[Back]</a></li>
+        </ul>
+      </section>
+
+      <section id="start">
+        <p>
+          This webpage contains various ambient audio and sound effects which can't be turned
+          off.<br />Do you still wish to proceed?
+        </p>
+        <ul class="wide-gap-after">
+          <li><a href="#bootup">[Confirm]</a></li>
+        </ul>
+
+        <p>
+          *** Keyboard users, use TAB for next, SHIFT+TAB for previous, UP and DOWN arrow keys to
+          scroll and ENTER to CONFIRM ***
+        </p>
+        <p class="gap-after">
+          *** This webpage is usable without JavaScript but some non-essential features will cease
+          to work ***
+        </p>
+      </section>
+    </main>
+
+    <audio class="humAudio" src="./audio/hum.flac" preload="none"></audio>
+    <audio class="bootupAudio" src="./audio/bootup.mp3" preload="none"></audio>
+    <audio class="staticAudio" src="./audio/static.mp3" preload="none"></audio>
+
+    <audio class="diamondCityRadio" src="./audio/radio.m4a" preload="none"></audio>
+
+    <script>(()=>{function E(t){return new Promise(e=>setTimeout(e,t))}function f(t){try{return localStorage.getItem(t)}catch(e){return console.error(e),null}}function h(t,e){try{localStorage.setItem(t,e)}catch(o){console.error(o)}}var A=[4,8,12,16,20],q=4,O=50,p={};function C(){Array.from(document.querySelectorAll("section")).forEach(e=>{let o=e.innerHTML;A.forEach((r,i)=>{let n=document.createElement("div");n.className="blur-".concat(r),n.setAttribute("role","presentation"),n.setAttribute("aria-hidden","true"),n.innerHTML=o,i===A.length-1&&e.id!=="start"&&(n.style.opacity="1"),Array.from(n.querySelectorAll("a, button")).forEach(a=>{a.setAttribute("aria-hidden","true"),a.setAttribute("tabindex","-1")}),e.appendChild(n),p[e.id]==null&&(p[e.id]=[]),p[e.id].push(n)})})}function v(t,e,o){let r=o>e?q:-q,i=(a,s)=>{p[a.id].forEach(c=>{let d=c.className==="blur-".concat(s);c.style.opacity=d?"1":""})},n=Promise.resolve();for(let a=e+r;a!==o+r;a+=r)n=n.then(()=>(i(t,a),E(O)));return n}var y=!1;function B(){return y}function u(t,e,o,r){if(y)return;y=!0;let i=()=>{y=!1},n=()=>document.getElementById(location.hash.slice(1))||document.querySelector("#start");Promise.resolve().then(()=>o?Promise.resolve():v(n(),0,20)).then(()=>(t&&t(),r?Promise.resolve():v(n(),20,0))).then(()=>{e&&e()}).then(i,i)}var x=!1;function w(){if(x)return;x=!0,document.querySelector(".diamondCityRadio").pause();let e=document.querySelector(".randoms");e.innerHTML="";let o=document.querySelector("#bootup"),r=document.querySelector(".bootupAudio"),i=document.querySelector(".humAudio");i.pause(),r.play();let n=setInterval(()=>{requestAnimationFrame(()=>{let c=document.createElement("div");c.textContent=Math.random(),e.appendChild(c),o.scrollTop=o.scrollHeight})},50),a=!1,s=()=>{if(a)return;a=!0,clearInterval(n),e.innerHTML="",r.pause(),r.currentTime=0,i.currentTime=0,i.volume=.15,i.play(),location.hash==="#bootup"&&document.querySelector(".mainmenuButton").click();let c=document.querySelector(".staticAudio");c.onended=()=>{M()},c.play(),window.removeEventListener("hashchange",s),x=!1};r.onended=s,setTimeout(s,4500),window.addEventListener("hashchange",s)}function L(){Array.from(document.querySelectorAll("a[href^='#']")).forEach(t=>{t.addEventListener("click",e=>{e.preventDefault();let o=t.getAttribute("href");u(()=>{location.hash=o},null,!1,!0)})}),window.addEventListener("hashchange",()=>{let t=location.hash==="#bootup"?w:null;u(null,t,!0,!1)}),u(null,location.hash==="#bootup"?w:null,!0,!1)}var T="./audio/click.mp3",I="./audio/hover.mp3";function S(t){let e=new Audio(t);e.volume=.5,e.play()}function R(){let t=document.querySelector(".diamondCityRadio"),e=()=>{let o=new Date().setHours(0,0,0,0),r=(Date.now()-o)/1e3;t.currentTime=r%t.duration,t.volume=.5,t.loop=!0,t.play()};if(t.readyState<1){t.load(),t.onloadedmetadata=e;return}e()}var l=!1;function k(){let t=Array.from(document.querySelectorAll(".radioButton")),e="[".concat(l?"Enabled":"Disabled","]");t.forEach(o=>o.textContent=e)}function U(){u(()=>{l=!l,h("radio",l),k(),l?R():document.querySelector(".diamondCityRadio").pause()})}function M(){l&&R()}function D(){l=f("radio")==="true",k(),document.querySelector(".radioButton").addEventListener("click",U)}function H(){Array.from(document.querySelectorAll("button, a")).forEach(t=>{t.addEventListener("mouseenter",()=>{B()||S(I)}),t.tagName==="BUTTON"&&t.addEventListener("click",()=>{S(T)})}),window.addEventListener("keydown",t=>{t.key==="Tab"&&S(I)}),window.addEventListener("hashchange",()=>{S(T)})}var m=["Lime","Cyan","Orange","White"],b=m[0];function P(t){let e=document.querySelector("main"),o=Array.from(document.querySelectorAll(".textColorButton"));e.classList.remove(b),e.classList.add(t),o.forEach(r=>r.textContent="[".concat(t,"]")),b=t,h("textColor",t)}function W(){let t=(m.indexOf(b)+1)%m.length;u(()=>P(m[t]))}function F(){let t=f("textColor");m.includes(t)&&P(t),document.querySelector(".textColorButton").addEventListener("click",W)}function j(t){let e=2/(3*Math.sqrt(3)),o=document.createElement("canvas");o.width=t,o.height=t;let r=o.getContext("2d"),i=r.createImageData(t,t);for(let n=0;n<t;n++)for(let a=0;a<t;a++){let s=(a+.5)/t*2-1,c=(n+.5)/t*2-1,d=(1-(s*s+c*c))/e,g=(n*t+a)*4;i.data[g]=128-s*d*127,i.data[g+1]=128-c*d*127,i.data[g+3]=255}return r.putImageData(i,0,0),o.toDataURL()}function N(){let t=document.querySelector("main"),e=document.querySelector(".fisheyeDisplacement"),o=Math.min(t.offsetWidth,t.offsetHeight);e.setAttribute("scale",o*.025*2)}function $(){let t=document.querySelector("main");document.querySelector(".fisheyeMap").setAttribute("href",j(256)),N(),t.style.filter="url(#fisheye)",window.addEventListener("resize",N)}$();C();L();F();D();H();var G=document.getElementById(location.hash.slice(1));location.hash&&!G&&location.replace("#");})();
+</script>
+  </body>
+</html>

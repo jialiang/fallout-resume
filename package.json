@@ -3,9 +3,28 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "format": "prettier --write ."
+    "build": "node build.js",
+    "format": "prettier --write .",
+    "lint": "eslint .",
+    "watch": "nodemon"
   },
+  "browserslist": [
+    "chrome >= 61",
+    "firefox >= 56",
+    "safari >= 11",
+    "ios_saf >= 11",
+    "edge >= 16"
+  ],
   "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@typescript-eslint/utils": "8.72.0",
+    "esbuild": "0.28.2",
+    "eslint": "10.13.0",
+    "eslint-import-resolver-node": "0.4.0",
+    "eslint-plugin-compat": "7.0.2",
+    "eslint-plugin-import-x": "4.17.1",
+    "globals": "17.13.0",
+    "nodemon": "3.1.14",
     "prettier": "3.9.10",
     "prettier-plugin-css-order": "2.2.0"
   }

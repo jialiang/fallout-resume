@@ -1,0 +1,60 @@
+import { wait } from "../helpers";
+
+const blurValues = [4, 8, 12, 16, 20];
+const blurStep = 4;
+const blurStepDuration = 50;
+
+const blurs = {};
+
+export function createBlurState() {
+  const sections = Array.from(document.querySelectorAll("section"));
+
+  sections.forEach((section) => {
+    const content = section.innerHTML;
+
+    blurValues.forEach((value, index) => {
+      const div = document.createElement("div");
+
+      div.className = `blur-${value}`;
+      div.setAttribute("role", "presentation");
+      div.setAttribute("aria-hidden", "true");
+      div.innerHTML = content;
+
+      if (index === blurValues.length - 1 && section.id !== "start") {
+        div.style.opacity = "1";
+      }
+
+      Array.from(div.querySelectorAll("a, button")).forEach((elem) => {
+        elem.setAttribute("aria-hidden", "true");
+        elem.setAttribute("tabindex", "-1");
+      });
+
+      section.appendChild(div);
+
+      if (blurs[section.id] == null) blurs[section.id] = [];
+      blurs[section.id].push(div);
+    });
+  });
+}
+
+export function blurSection(section, initialValue, finalValue) {
+  const step = finalValue > initialValue ? blurStep : -blurStep;
+
+  const showBlurLevel = (section, value) => {
+    blurs[section.id].forEach((layer) => {
+      const isShown = layer.className === `blur-${value}`;
+      layer.style.opacity = isShown ? "1" : "";
+    });
+  };
+
+  let steps = Promise.resolve();
+
+  for (let value = initialValue + step; value !== finalValue + step; value += step) {
+    steps = steps.then(() => {
+      showBlurLevel(section, value);
+      return wait(blurStepDuration);
+    });
+  }
+
+  return steps;
+}
