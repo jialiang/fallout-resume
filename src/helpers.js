@@ -11,18 +11,18 @@ export function pickRandom(items) {
   return items[randomInteger(0, items.length - 1)];
 }
 
-export function readSetting(key) {
+export function readSetting(key, isTabScoped) {
   try {
-    return localStorage.getItem(key);
+    return (isTabScoped ? sessionStorage : localStorage).getItem(key);
   } catch (error) {
     console.error(error);
     return null;
   }
 }
 
-export function saveSetting(key, value) {
+export function saveSetting(key, value, isTabScoped) {
   try {
-    localStorage.setItem(key, value);
+    (isTabScoped ? sessionStorage : localStorage).setItem(key, value);
   } catch (error) {
     console.error(error);
   }

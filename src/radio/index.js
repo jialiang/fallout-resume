@@ -1,6 +1,8 @@
 import { changeWithTransition } from "../transition";
 import { readSetting, saveSetting } from "../helpers";
 
+const isTabScoped = true;
+
 let isRadioEnabled = false;
 
 function getRadio() {
@@ -45,7 +47,7 @@ function updateRadioButtons() {
 function toggleRadio() {
   changeWithTransition(() => {
     isRadioEnabled = !isRadioEnabled;
-    saveSetting("radio", isRadioEnabled);
+    saveSetting("radio", isRadioEnabled, isTabScoped);
     updateRadioButtons();
 
     if (isRadioEnabled) startRadio();
@@ -66,7 +68,7 @@ export async function resumeRadio() {
 }
 
 export function initRadio() {
-  isRadioEnabled = readSetting("radio") === "true";
+  isRadioEnabled = readSetting("radio", isTabScoped) === "true";
   updateRadioButtons();
 
   const radioButton = document.querySelector(".radioButton");
