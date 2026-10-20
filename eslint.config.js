@@ -12,9 +12,9 @@ export default defineConfig([
     plugins: { compat },
     extends: [importX.flatConfigs.recommended],
     languageOptions: {
-      // Baseline: the page must run on any browser with full ES2015 support.
+      // Baseline: the page must run on any browser with full ES2017 support.
       // The browsers themselves are listed under browserslist in package.json.
-      ecmaVersion: 2015,
+      ecmaVersion: 2017,
       sourceType: "module",
       globals: globals.browser,
     },

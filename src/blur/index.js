@@ -37,24 +37,18 @@ export function createBlurState() {
   });
 }
 
-export function blurSection(section, initialValue, finalValue) {
+function showBlurLevel(section, value) {
+  blurs[section.id].forEach((layer) => {
+    const isShown = layer.className === `blur-${value}`;
+    layer.style.opacity = isShown ? "1" : "";
+  });
+}
+
+export async function blurSection(section, initialValue, finalValue) {
   const step = finalValue > initialValue ? blurStep : -blurStep;
 
-  const showBlurLevel = (section, value) => {
-    blurs[section.id].forEach((layer) => {
-      const isShown = layer.className === `blur-${value}`;
-      layer.style.opacity = isShown ? "1" : "";
-    });
-  };
-
-  let steps = Promise.resolve();
-
   for (let value = initialValue + step; value !== finalValue + step; value += step) {
-    steps = steps.then(() => {
-      showBlurLevel(section, value);
-      return wait(blurStepDuration);
-    });
+    showBlurLevel(section, value);
+    await wait(blurStepDuration);
   }
-
-  return steps;
 }

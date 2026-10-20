@@ -1,5 +1,4 @@
-import { getIsProcessing, transitionManager } from "../transition";
-import { readSetting, saveSetting } from "../helpers";
+import { getIsTransitioning } from "../transition";
 
 const clickEffect = "./audio/click.mp3";
 const hoverEffect = "./audio/hover.mp3";
@@ -10,63 +9,31 @@ function playEffect(src) {
   audio.play();
 }
 
-export function startRadio() {
-  const radio = document.querySelector(".diamondCityRadio");
-  const metadataLoaded = () => {
-    const midnight = new Date().setHours(0, 0, 0, 0);
-    const secondsSinceMidnight = (Date.now() - midnight) / 1000;
-
-    radio.currentTime = secondsSinceMidnight % radio.duration;
-    radio.volume = 0.5;
-    radio.loop = true;
-    radio.play();
-  };
-
-  if (radio.readyState < 1) {
-    radio.load();
-    radio.onloadedmetadata = metadataLoaded;
-    return;
-  }
-
-  metadataLoaded();
+export function pauseHum() {
+  document.querySelector(".humAudio").pause();
 }
 
-let isRadioEnabled = false;
+export function restartHum() {
+  const hum = document.querySelector(".humAudio");
 
-function updateRadioButtons() {
-  const radioButtons = Array.from(document.querySelectorAll(".radioButton"));
-  const label = `[${isRadioEnabled ? "Enabled" : "Disabled"}]`;
-
-  radioButtons.forEach((button) => (button.textContent = label));
+  hum.currentTime = 0;
+  hum.volume = 0.15;
+  hum.play();
 }
 
-function toggleRadio() {
-  transitionManager(() => {
-    isRadioEnabled = !isRadioEnabled;
-    saveSetting("radio", isRadioEnabled);
-    updateRadioButtons();
+export function playStatic() {
+  const staticAudio = document.querySelector(".staticAudio");
 
-    if (isRadioEnabled) startRadio();
-    else document.querySelector(".diamondCityRadio").pause();
+  return new Promise((resolve) => {
+    staticAudio.onended = resolve;
+    staticAudio.play();
   });
-}
-
-export function resumeRadio() {
-  if (isRadioEnabled) startRadio();
-}
-
-export function initRadio() {
-  isRadioEnabled = readSetting("radio") === "true";
-  updateRadioButtons();
-
-  const radioButton = document.querySelector(".radioButton");
-  radioButton.addEventListener("click", toggleRadio);
 }
 
 export function initSfx() {
   Array.from(document.querySelectorAll("button, a")).forEach((elem) => {
     elem.addEventListener("mouseenter", () => {
-      if (getIsProcessing()) return;
+      if (getIsTransitioning()) return;
       playEffect(hoverEffect);
     });
 
