@@ -16,6 +16,8 @@ const { outputFiles } = await build({
   bundle: true,
   minify: true,
   target,
+  // Third-party notices are shown on the #licenses screen instead.
+  legalComments: "none",
   outdir: outputDirectory,
   external: ["*.woff2", "*.png"],
   write: false,
