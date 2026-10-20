@@ -1,6 +1,6 @@
 import { initSfx, pauseHum, playStatic, restartHum } from "./audio";
 import { createBlurState } from "./blur";
-import { getIsBootingUp, runBootup } from "./bootup";
+import { getIsBeforeBootup, getIsBootingUp, runBootup } from "./bootup";
 import { initColor } from "./color";
 import { applyFisheye } from "./fisheye";
 import { enterHolotape, initHolotape } from "./holotape";
@@ -30,17 +30,16 @@ function onEnterSection(hash) {
 }
 
 // Skipped before and during boot-up, which starts the radio itself afterwards
-// and on the radio button, which is about to switch it off.
+// and on the radio buttons, which are about to switch it off.
 function resumeRadioOnFirstInteraction() {
   const interactions = ["click", "keydown", "touchend"];
 
   const resume = (event) => {
     interactions.forEach((type) => window.removeEventListener(type, resume, true));
 
-    const isBeforeBootup = !location.hash || location.hash === "#bootup";
-    const isRadioButton = event.target.closest && event.target.closest(".radioButton");
+    const isRadioButton = event.target.closest && event.target.closest(".radioButton, .radio");
 
-    if (!isBeforeBootup && !isRadioButton && !getIsBootingUp()) resumeRadio();
+    if (!getIsBeforeBootup() && !isRadioButton && !getIsBootingUp()) resumeRadio();
   };
 
   interactions.forEach((type) => window.addEventListener(type, resume, true));
@@ -48,8 +47,7 @@ function resumeRadioOnFirstInteraction() {
 
 // Tries to play straight away and waits for an interaction if blocked.
 async function restoreRadio() {
-  const isBeforeBootup = !location.hash || location.hash === "#bootup";
-  if (isBeforeBootup || !getIsRadioEnabled()) return;
+  if (getIsBeforeBootup() || !getIsRadioEnabled()) return;
 
   const isPlaying = await resumeRadio();
   if (!isPlaying) resumeRadioOnFirstInteraction();

@@ -1,3 +1,4 @@
+import { getIsBeforeBootup } from "../bootup";
 import { changeWithTransition } from "../transition";
 import { readSetting, saveSetting } from "../helpers";
 
@@ -42,17 +43,24 @@ function updateRadioButtons() {
   const label = `[${isRadioEnabled ? "Enabled" : "Disabled"}]`;
 
   radioButtons.forEach((button) => (button.textContent = label));
+
+  const frameButton = document.querySelector(".radio");
+  frameButton.classList.toggle("enabled", isRadioEnabled);
+  frameButton.setAttribute("aria-pressed", isRadioEnabled);
+}
+
+// Before boot-up only the setting changes: boot-up starts the radio itself.
+function setRadioEnabled(isEnabled) {
+  isRadioEnabled = isEnabled;
+  saveSetting("radio", isRadioEnabled, isTabScoped);
+  updateRadioButtons();
+
+  if (!isRadioEnabled) pauseRadio();
+  else if (!getIsBeforeBootup()) startRadio();
 }
 
 function toggleRadio() {
-  changeWithTransition(() => {
-    isRadioEnabled = !isRadioEnabled;
-    saveSetting("radio", isRadioEnabled, isTabScoped);
-    updateRadioButtons();
-
-    if (isRadioEnabled) startRadio();
-    else pauseRadio();
-  });
+  changeWithTransition(() => setRadioEnabled(!isRadioEnabled));
 }
 
 export function pauseRadio() {
@@ -73,4 +81,8 @@ export function initRadio() {
 
   const radioButton = document.querySelector(".radioButton");
   radioButton.addEventListener("click", toggleRadio);
+
+  // On the frame rather than the screen, so it switches without a blur.
+  const frameButton = document.querySelector(".radio");
+  frameButton.addEventListener("click", () => setRadioEnabled(!isRadioEnabled));
 }
