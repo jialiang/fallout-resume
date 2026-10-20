@@ -24,7 +24,7 @@ export function createBlurState() {
         div.style.opacity = "1";
       }
 
-      Array.from(div.querySelectorAll("a, button")).forEach((elem) => {
+      Array.from(div.querySelectorAll("a, button, [tabindex]")).forEach((elem) => {
         elem.setAttribute("aria-hidden", "true");
         elem.setAttribute("tabindex", "-1");
       });

@@ -424,12 +424,48 @@
           EXEC VERSION 41.10<br />
           64k RAM SYSTEM<br />
           38911 BYTES FREE<br />
-          NO HOLOTAPE FOUND<br />
+          1 HOLOTAPE FOUND<br />
           LOAD ROM(1): DEITRIX 303
         </p>
 
         <ul>
+          <li><a href="#holotape">[Run Holotape]</a></li>
+        </ul>
+
+        <ul>
           <li><a href="#config">[Back]</a></li>
+        </ul>
+      </section>
+
+      <section id="holotape">
+        <p class="banner" aria-hidden="true">Welcome to ROBCO Industries (TM) Termlink</p>
+
+        <h2>
+          Dino Runner
+          <br />
+          <span class="single-line" aria-hidden="true">===========</span>
+        </h2>
+
+        <ul>
+          <li><span>Score:</span><span class="holotapeScore">00000</span></li>
+          <li><span>High score:</span><span class="holotapeHighScore">00000</span></li>
+        </ul>
+
+        <div
+          class="holotapeGame"
+          tabindex="0"
+          role="application"
+          aria-label="Dino Runner game. Press SPACE, UP or tap to jump and DOWN to duck.">
+          <div class="holotapeScreen">
+            <svg viewBox="0 0 600 150" shape-rendering="crispEdges" aria-hidden="true"></svg>
+          </div>
+        </div>
+
+        <p class="holotapeStatus gap-after" aria-live="polite"></p>
+        <p class="show-if-no-js gap-after">*** This holotape needs JavaScript to run ***</p>
+
+        <ul>
+          <li><a href="#about-terminal">[Back]</a></li>
         </ul>
       </section>
 
@@ -450,6 +486,7 @@
           *** This webpage is usable without JavaScript but some non-essential features will cease
           to work ***
         </p>
+        <p>*** 1 Dino game is included ***</p>
       </section>
     </main>
 

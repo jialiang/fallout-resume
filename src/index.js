@@ -3,6 +3,7 @@ import { createBlurState } from "./blur";
 import { getIsBootingUp, runBootup } from "./bootup";
 import { initColor } from "./color";
 import { applyFisheye } from "./fisheye";
+import { enterHolotape, initHolotape } from "./holotape";
 import { initNavigation, navigate } from "./navigation";
 import { getIsRadioEnabled, initRadio, pauseRadio, resumeRadio } from "./radio";
 
@@ -25,6 +26,7 @@ async function bootUp() {
 
 function onEnterSection(hash) {
   if (hash === "#bootup") bootUp();
+  if (hash === "#holotape") enterHolotape();
 }
 
 // Skipped before and during boot-up, which starts the radio itself afterwards
@@ -55,6 +57,7 @@ async function restoreRadio() {
 
 applyFisheye();
 createBlurState();
+initHolotape();
 initColor();
 initRadio();
 initSfx();
