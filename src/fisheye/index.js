@@ -30,7 +30,7 @@ function createFisheyeMap(size) {
 
 function updateFisheyeScale() {
   const main = document.querySelector("main");
-  const fisheyeDisplacement = document.querySelector(".fisheyeDisplacement");
+  const fisheyeDisplacement = document.querySelector("#fisheye feDisplacementMap");
 
   const shorterSide = Math.min(main.offsetWidth, main.offsetHeight);
   fisheyeDisplacement.setAttribute("scale", shorterSide * fisheyeStrength * 2);

@@ -90,12 +90,7 @@
         height="100%"
         color-interpolation-filters="sRGB">
         <feImage class="fisheyeMap" result="map" preserveAspectRatio="none" />
-        <feDisplacementMap
-          class="fisheyeDisplacement"
-          in="SourceGraphic"
-          in2="map"
-          xChannelSelector="R"
-          yChannelSelector="G" />
+        <feDisplacementMap in="SourceGraphic" in2="map" xChannelSelector="R" yChannelSelector="G" />
       </filter>
     </svg>
 
