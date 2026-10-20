@@ -72,11 +72,11 @@ ul,
 h1,
 ul,
 .gap-after {
-  margin-bottom: 2.825em;
+  margin-bottom: 3em;
 }
 
 .wide-gap-after {
-  margin-bottom: 4.15em;
+  margin-bottom: 4em;
 }
 
 ul {
@@ -86,12 +86,12 @@ ul {
 
 li {
   display: flex;
-  margin-bottom: 0.25em;
-  padding: 0.25em 0;
+  margin-bottom: 1em;
 }
 
 li span:nth-child(1) {
   flex: none;
+  opacity: 0.75;
   margin-right: 1em;
   width: 10em;
   max-width: 50%;
@@ -102,22 +102,36 @@ li span:nth-child(2) {
   min-width: 0;
 }
 
+@media (max-width: 480px) {
+  li {
+    flex-direction: column;
+  }
+
+  li span:nth-child(1) {
+    max-width: 100%;
+  }
+}
+
+.long-list {
+  flex-direction: column;
+}
+
+.long-list span {
+  margin-bottom: 1em;
+}
+
 .bullets {
   flex: 1;
   margin: 0;
+  padding-left: 1em;
   min-width: 0;
 }
 
 .bullets li {
-  margin: 0;
+  display: list-item;
+  margin: 0 0 1em 0;
   padding: 0;
-}
-
-/* A column of its own, so wrapped lines line up with the text. */
-.bullets li::before {
-  flex: none;
-  width: 2ch;
-  content: "-";
+  list-style: square;
 }
 
 li a {
@@ -126,6 +140,7 @@ li a {
 
 li a,
 li button {
+  display: inline-block;
   cursor: pointer;
   margin: 0 0 -0.5em -0.25em;
   border: none;
