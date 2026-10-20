@@ -29,6 +29,9 @@ export function createBlurState() {
         elem.setAttribute("tabindex", "-1");
       });
 
+      // Copies keep their markup, so drop IDs that would clash with the original.
+      Array.from(div.querySelectorAll("[id]")).forEach((elem) => elem.removeAttribute("id"));
+
       section.appendChild(div);
 
       if (blurs[section.id] == null) blurs[section.id] = [];
