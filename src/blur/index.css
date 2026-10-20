@@ -6,7 +6,7 @@ div[class*="blur"] {
   z-index: 1;
   box-sizing: border-box;
   background: #1a1a1a;
-  padding: 11vh 9%;
+  padding: 15vh 9%;
   width: 100%;
   pointer-events: none;
   color: transparent;

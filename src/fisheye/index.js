@@ -15,11 +15,12 @@ function createFisheyeMap(size) {
       const nx = ((x + 0.5) / size) * 2 - 1;
       const ny = ((y + 0.5) / size) * 2 - 1;
 
-      const pull = (1 - (nx * nx + ny * ny)) / peak;
+      const pullX = (nx * (1 - nx * nx) * (1 - ny * ny)) / peak;
+      const pullY = (ny * (1 - ny * ny) * (1 - nx * nx)) / peak;
       const index = (y * size + x) * 4;
 
-      image.data[index] = 128 - nx * pull * 127;
-      image.data[index + 1] = 128 - ny * pull * 127;
+      image.data[index] = 128 - pullX * 127;
+      image.data[index + 1] = 128 - pullY * 127;
       image.data[index + 3] = 255;
     }
   }
