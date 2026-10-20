@@ -33,6 +33,9 @@ main {
   position: relative;
   width: 100%;
   height: 100%;
+  /* Without it, Android Chrome showed section text below the frame once a
+     scroll hid the URL bar. */
+  overflow: hidden;
   color: var(--text);
   text-shadow:
     0.25em 0.25em 1em var(--glow),
@@ -151,6 +154,7 @@ li button {
   font-family: inherit;
   text-decoration: inherit;
   text-shadow: inherit;
+  -webkit-tap-highlight-color: transparent;
 }
 
 a:hover,
