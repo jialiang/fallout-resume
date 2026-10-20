@@ -102,6 +102,24 @@ li span:nth-child(2) {
   min-width: 0;
 }
 
+.bullets {
+  flex: 1;
+  margin: 0;
+  min-width: 0;
+}
+
+.bullets li {
+  margin: 0;
+  padding: 0;
+}
+
+/* A column of its own, so wrapped lines line up with the text. */
+.bullets li::before {
+  flex: none;
+  width: 2ch;
+  content: "-";
+}
+
 li a {
   flex: 1;
 }
