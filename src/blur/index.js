@@ -47,6 +47,10 @@ function showBlurLevel(section, value) {
   });
 }
 
+export function getIsBlurred(section) {
+  return blurs[section.id].some((layer) => layer.style.opacity === "1");
+}
+
 export async function blurSection(section, initialValue, finalValue) {
   const step = finalValue > initialValue ? blurStep : -blurStep;
 

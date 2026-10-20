@@ -6,7 +6,7 @@ export function getIsTransitioning() {
   return isTransitioning;
 }
 
-function getCurrentSection() {
+export function getCurrentSection() {
   return document.getElementById(location.hash.slice(1)) || document.querySelector("#start");
 }
 
