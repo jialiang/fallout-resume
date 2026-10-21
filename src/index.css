@@ -44,7 +44,7 @@ main {
   overflow: hidden;
   color: var(--text);
   text-shadow:
-    0.25em 0.25em 0.75em var(--glow),
+    0.25em 0.25em 1em var(--glow),
     0 0 0.05em var(--edge);
 }
 
