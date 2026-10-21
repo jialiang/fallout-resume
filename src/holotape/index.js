@@ -224,16 +224,25 @@ function onKeyUp(event) {
   if (duckKeys.includes(event.key)) releaseDuck();
 }
 
-// Without preventDefault a tap would also fire the mouse events and scroll,
-// but it also stops the tap from focusing, hence the explicit focus().
+// Outside a run a touch may be a scroll, so starting is left to onClick.
+// preventDefault stops a jump from also scrolling or firing mouse events,
+// but it also blocks focus, hence focus().
 function onTouchStart(event) {
+  if (state !== "running") return;
+
   event.preventDefault();
   getGameArea().focus();
   pressJump();
 }
 
+// Jumps on press, not click, so letting go mid-rise can cut it short.
 function onMouseDown(event) {
-  if (event.button === 0) pressJump();
+  if (event.button === 0 && state === "running") pressJump();
+}
+
+// Starts, resumes or restarts the game.
+function onClick() {
+  if (state !== "running") pressJump();
 }
 
 // Fits again in case the layout shifted (a late font, say) without a resize.
@@ -259,6 +268,7 @@ export function initHolotape() {
   gameArea.addEventListener("keyup", onKeyUp);
   gameArea.addEventListener("mousedown", onMouseDown);
   gameArea.addEventListener("mouseup", endJump);
+  gameArea.addEventListener("click", onClick);
   gameArea.addEventListener("touchstart", onTouchStart);
   gameArea.addEventListener("touchend", endJump);
   gameArea.addEventListener("blur", pause);
