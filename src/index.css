@@ -15,6 +15,10 @@ html {
   height: 100%;
   overflow: hidden;
   font-size: 1.25em;
+  /* The line height Noto Sans Mono gives at this size (27.5px for 20px text).
+     Fixing it keeps the lines from growing when the font replaces the fallback
+     which would shift the page. */
+  line-height: 1.375;
   font-family: "Noto Sans Mono", monospace;
   letter-spacing: 0.05em;
 }
@@ -156,6 +160,7 @@ li button {
   padding: 0.25em 0.25em 0.35em 0.25em;
   color: inherit;
   font-size: inherit;
+  line-height: inherit;
   font-family: inherit;
   text-decoration: inherit;
   text-shadow: inherit;
