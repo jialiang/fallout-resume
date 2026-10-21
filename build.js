@@ -1,7 +1,7 @@
 import { build } from "esbuild";
 import { cpSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 
-const outputDirectory = "docs";
+const outputDirectory = "dist";
 const staticDirectory = "src/static";
 
 // esbuild doesn't read browserslist, so its queries ("chrome >= 61") are

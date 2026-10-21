@@ -6,7 +6,7 @@ import js from "@eslint/js";
 import { defineConfig, globalIgnores } from "eslint/config";
 
 export default defineConfig([
-  globalIgnores(["docs/"]),
+  globalIgnores(["dist/", "docs/"]),
   {
     files: ["src/**/*.js"],
     plugins: { compat },
