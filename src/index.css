@@ -159,7 +159,6 @@ li button {
   font-family: inherit;
   text-decoration: inherit;
   text-shadow: inherit;
-  -webkit-tap-highlight-color: transparent;
 }
 
 main a:hover,
@@ -168,6 +167,11 @@ main button:hover,
 main button:focus {
   color: black;
   text-shadow: 0 0 0.05em rgba(0, 0, 0, 0.7);
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
 }
 
 a:focus,
