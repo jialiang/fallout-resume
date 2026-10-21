@@ -1,4 +1,5 @@
 import { clearBlur, getIsBlurred } from "../blur";
+
 import {
   blurIn,
   blurOut,

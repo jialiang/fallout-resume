@@ -1,4 +1,5 @@
 import { readSetting, saveSetting } from "../helpers";
+
 import {
   createLayer,
   fitScreen,
@@ -7,6 +8,7 @@ import {
   getVisibleWidth,
   isOverlapping,
 } from "./stage";
+
 import {
   crashDino,
   drawDino,
@@ -19,6 +21,7 @@ import {
   startJump,
   updateDino,
 } from "./dino";
+
 import {
   drawObstacles,
   getObstacleBoxes,
@@ -26,6 +29,7 @@ import {
   resetObstacles,
   updateObstacles,
 } from "./obstacles";
+
 import { drawScenery, initScenery, resetScenery, updateScenery } from "./scenery";
 
 const startSpeed = 6;
