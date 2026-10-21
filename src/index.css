@@ -9,6 +9,7 @@
 }
 
 html {
+  display: flex;
   background: #121212;
   width: 100%;
   height: 100%;
@@ -20,13 +21,14 @@ html {
 
 body {
   position: relative;
-  margin: 0 auto;
+  margin: auto;
   background: #1a1a1a;
   width: 100%;
   max-width: calc(100vh * 4 / 3);
   /* Browsers without dvh drop this line and keep the vh one above. */
   max-width: calc(100dvh * 4 / 3);
   height: 100%;
+  max-height: calc(100vw * 4 / 3);
 }
 
 main {
@@ -38,7 +40,7 @@ main {
   overflow: hidden;
   color: var(--text);
   text-shadow:
-    0.25em 0.25em 1em var(--glow),
+    0.25em 0.25em 0.75em var(--glow),
     0 0 0.05em var(--edge);
 }
 
@@ -229,6 +231,16 @@ button::-moz-focus-inner {
   color: #757575;
   font-size: 2.5vh;
   font-family: inherit;
+}
+
+@media (max-aspect-ratio: 3/4) {
+  section {
+    padding: 20vw 9%;
+  }
+
+  .radio {
+    font-size: calc(2.5vw * 4 / 3);
+  }
 }
 
 .radio.enabled {

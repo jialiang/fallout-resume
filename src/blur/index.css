@@ -12,6 +12,12 @@ div[class*="blur"] {
   color: transparent;
 }
 
+@media (max-aspect-ratio: 3/4) {
+  div[class*="blur"] {
+    padding: 20vw 9%;
+  }
+}
+
 .blur-4 {
   text-shadow: 0 0 0.25em var(--text);
 }
