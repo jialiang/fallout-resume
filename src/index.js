@@ -53,6 +53,33 @@ async function restoreRadio() {
   if (!isPlaying) resumeRadioOnFirstInteraction();
 }
 
+function preloadAudioAfterPaint() {
+  if (window.PerformanceObserver) {
+    const entryTypes = PerformanceObserver.supportedEntryTypes || [];
+
+    if (entryTypes.includes("paint")) {
+      let backupTimer = 0;
+
+      const observer = new PerformanceObserver((entries) => {
+        if (entries.getEntriesByName("first-contentful-paint")[0]) start();
+      });
+
+      const start = () => {
+        clearTimeout(backupTimer);
+        observer.disconnect();
+        preloadAudio();
+      };
+
+      observer.observe({ type: "paint", buffered: true });
+
+      backupTimer = setTimeout(start, 1000);
+      return;
+    }
+  }
+
+  preloadAudio();
+}
+
 applyFisheye();
 createBlurState();
 initHolotape();
@@ -62,4 +89,4 @@ initSfx();
 initNavigation(onEnterSection);
 restoreRadio();
 
-window.addEventListener("load", preloadAudio);
+window.addEventListener("load", preloadAudioAfterPaint);

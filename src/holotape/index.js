@@ -242,7 +242,6 @@ export function initHolotape() {
   const gameArea = getGameArea();
   const svg = gameArea.querySelector("svg");
 
-  fitScreen();
   initScenery(createLayer(svg));
   initObstacles(createLayer(svg));
   initDino(createLayer(svg));
@@ -263,5 +262,12 @@ export function initHolotape() {
   window.addEventListener("hashchange", pause);
   document.addEventListener("visibilitychange", pauseIfHidden);
   window.addEventListener("resize", fitScreen);
+
+  if (window.ResizeObserver) {
+    new ResizeObserver(fitScreen).observe(svg.closest(".holotapeScreen"));
+    return;
+  }
+
+  fitScreen();
   window.addEventListener("load", fitScreen);
 }

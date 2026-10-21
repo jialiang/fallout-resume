@@ -42,8 +42,13 @@ export function applyFisheye() {
   const fisheyeMap = document.querySelector(".fisheyeMap");
 
   fisheyeMap.setAttribute("href", createFisheyeMap(256));
-  updateFisheyeScale();
   main.style.filter = "url(#fisheye)";
 
+  if (window.ResizeObserver) {
+    new ResizeObserver(updateFisheyeScale).observe(main);
+    return;
+  }
+
+  updateFisheyeScale();
   window.addEventListener("resize", updateFisheyeScale);
 }
