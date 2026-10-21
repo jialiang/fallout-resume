@@ -1,4 +1,4 @@
-import { getIsBlurred } from "../blur";
+import { clearBlur, getIsBlurred } from "../blur";
 import {
   blurIn,
   blurOut,
@@ -55,5 +55,7 @@ export function initNavigation(onEnterSection) {
   const isKnownSection = document.getElementById(location.hash.slice(1));
   if (location.hash && !isKnownSection) location.replace("#");
 
-  enterCurrentSection();
+  // The first section shows straight away: only later moves blur in.
+  clearBlur(getCurrentSection());
+  onEnter(location.hash);
 }
