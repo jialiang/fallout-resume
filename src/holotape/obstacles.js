@@ -21,9 +21,9 @@ const obstacleTypes = [
     groupSpeed: 4,
     minGap: 120,
     boxes: [
-      [0, 7, 5, 27],
-      [4, 0, 6, 34],
-      [10, 4, 7, 14],
+      [0, 7, 5, 26],
+      [4, 0, 6, 33],
+      [10, 4, 5, 14],
     ],
   },
   {
@@ -34,8 +34,8 @@ const obstacleTypes = [
     groupSpeed: 7,
     minGap: 120,
     boxes: [
-      [0, 12, 7, 38],
-      [8, 0, 7, 49],
+      [0, 12, 7, 36],
+      [8, 0, 7, 48],
       [13, 10, 10, 38],
     ],
   },
@@ -72,9 +72,11 @@ function pickType(speed) {
   return pickRandom(types);
 }
 
-// A group stretches its middle hitbox and moves the last one to its far end.
+// A group stretches its middle hitbox by the extra width and moves the last
+// one along with its right edge.
 function getGroupBoxes(type, width) {
-  if (width === type.width) return type.boxes;
+  const extraWidth = width - type.width;
+  if (!extraWidth) return type.boxes;
 
   const first = type.boxes[0];
   const middle = type.boxes[1];
@@ -82,8 +84,8 @@ function getGroupBoxes(type, width) {
 
   return [
     first,
-    [middle[0], middle[1], width - first[2] - last[2], middle[3]],
-    [width - last[2], last[1], last[2], last[3]],
+    [middle[0], middle[1], middle[2] + extraWidth, middle[3]],
+    [last[0] + extraWidth, last[1], last[2], last[3]],
   ];
 }
 

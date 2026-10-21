@@ -20,16 +20,14 @@ const duckFrameDuration = 1000 / 8;
 
 // Hitboxes, laid out as described at placeBoxes.
 const runningBoxes = [
-  [22, 0, 17, 16],
+  [22, 1, 17, 15],
   [1, 18, 30, 9],
   [10, 35, 14, 8],
   [1, 24, 29, 5],
   [5, 30, 21, 4],
   [9, 34, 15, 4],
 ];
-// Chromium's ducking box is 55 wide, but its quick first check used the
-// standing width, so only the part within that ever hit. Clipped to match.
-const duckingBoxes = [[1, 18, 41, 25]];
+const duckingBoxes = [[1, 18, 55, 25]];
 
 let sprite = null;
 let y = groundY;
