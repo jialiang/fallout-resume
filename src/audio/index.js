@@ -30,6 +30,25 @@ export function playStatic() {
   });
 }
 
+// Once the page has loaded, warm the cache so audio plays without fetch delay.
+// The radio is a large file, so it only fetches metadata.
+export function preloadAudio() {
+  [clickEffect, hoverEffect].forEach((src) => new Audio(src));
+
+  document.querySelectorAll(".humAudio, .bootupAudio, .staticAudio").forEach((audio) => {
+    if (!audio.paused) return;
+
+    audio.preload = "auto";
+    audio.load();
+  });
+
+  const radio = document.querySelector(".mojaveMusicRadio");
+  if (!radio.paused) return;
+
+  radio.preload = "metadata";
+  radio.load();
+}
+
 export function initSfx() {
   Array.from(document.querySelectorAll("button, a")).forEach((elem) => {
     elem.addEventListener("mouseenter", () => {
@@ -52,3 +71,4 @@ export function initSfx() {
     playEffect(clickEffect);
   });
 }
+

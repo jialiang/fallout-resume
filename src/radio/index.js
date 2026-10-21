@@ -5,9 +5,14 @@ import { readSetting, saveSetting } from "../helpers";
 const isTabScoped = true;
 
 let isRadioEnabled = false;
+let cancelPendingStart = null;
 
 function getRadio() {
-  return document.querySelector(".diamondCityRadio");
+  return document.querySelector(".mojaveMusicRadio");
+}
+
+function setIsBuffering(isBuffering) {
+  document.querySelector(".radio").classList.toggle("buffering", isBuffering);
 }
 
 // Joins the broadcast where it would be if it had been playing since midnight.
@@ -27,13 +32,31 @@ function startRadio() {
     const playing = radio.play();
     if (!playing) return true;
 
-    return playing.then(() => true).catch(() => false);
+    // A blocked play fires no media event, so the flicker is cleared here.
+    return playing
+      .then(() => true)
+      .catch(() => {
+        setIsBuffering(false);
+        return false;
+      });
   };
 
   if (radio.readyState >= 1) return Promise.resolve(play());
 
+  // The media events only start once play() is called, after the metadata.
+  setIsBuffering(true);
+
   return new Promise((resolve) => {
-    radio.onloadedmetadata = () => resolve(play());
+    cancelPendingStart = () => {
+      radio.onloadedmetadata = null;
+      resolve(false);
+    };
+
+    radio.onloadedmetadata = () => {
+      cancelPendingStart = null;
+      resolve(play());
+    };
+
     radio.load();
   });
 }
@@ -63,8 +86,13 @@ function toggleRadio() {
   changeWithTransition(() => setRadioEnabled(!isRadioEnabled));
 }
 
+// Also drops a start still waiting on the metadata
 export function pauseRadio() {
+  if (cancelPendingStart) cancelPendingStart();
+  cancelPendingStart = null;
+
   getRadio().pause();
+  setIsBuffering(false);
 }
 
 export function getIsRadioEnabled() {
@@ -85,4 +113,11 @@ export function initRadio() {
   // On the frame rather than the screen, so it switches without a blur.
   const frameButton = document.querySelector(".radio");
   frameButton.addEventListener("click", () => setRadioEnabled(!isRadioEnabled));
+
+  const radio = getRadio();
+  radio.addEventListener("waiting", () => setIsBuffering(true));
+
+  ["playing", "pause", "error"].forEach((type) => {
+    radio.addEventListener(type, () => setIsBuffering(false));
+  });
 }

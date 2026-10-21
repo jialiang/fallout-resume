@@ -1,4 +1,4 @@
-import { initSfx, pauseHum, playStatic, restartHum } from "./audio";
+import { initSfx, pauseHum, playStatic, preloadAudio, restartHum } from "./audio";
 import { createBlurState } from "./blur";
 import { getIsBeforeBootup, getIsBootingUp, runBootup } from "./bootup";
 import { initColor } from "./color";
@@ -61,3 +61,5 @@ initRadio();
 initSfx();
 initNavigation(onEnterSection);
 restoreRadio();
+
+window.addEventListener("load", preloadAudio);

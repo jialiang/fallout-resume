@@ -241,6 +241,17 @@ button::-moz-focus-inner {
     0 0 4em orange;
 }
 
+.radio.enabled.buffering {
+  animation: 0.25s flicker linear infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .radio.enabled.buffering {
+    opacity: 0.8;
+    animation: none;
+  }
+}
+
 .radio:focus:before {
   position: absolute;
   top: 0.0625em;
@@ -311,5 +322,11 @@ main button:focus {
 
   100% {
     transform: translateY(100%);
+  }
+}
+
+@keyframes flicker {
+  to {
+    opacity: 0.8;
   }
 }
