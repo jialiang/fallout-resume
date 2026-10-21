@@ -7,6 +7,8 @@ export const fullWidth = 600;
 export const gameHeight = 150;
 
 let visibleWidth = fullWidth;
+// Physical screen pixels per game unit (see drawSprite).
+let pixelsPerUnit = 1;
 
 // Movement is tuned per frame at 60 frames per second: multiplying by the
 // number of such frames that have passed keeps the pace on any refresh rate.
@@ -57,6 +59,7 @@ export function fitScreen() {
   }
 
   visibleWidth = Math.min(fullWidth, (screens[0].clientWidth / height) * gameHeight);
+  pixelsPerUnit = (height / gameHeight) * window.devicePixelRatio;
   screens[0].querySelector("svg").setAttribute("viewBox", `0 0 ${visibleWidth} ${gameHeight}`);
 }
 
@@ -74,11 +77,16 @@ export function createSprite(layer, className) {
   return sprite;
 }
 
+const snapToPixel = (value) => Math.round(value * pixelsPerUnit) / pixelsPerUnit;
+
+// The SVG's crisp edges snap each edge of the pixel art to a screen pixel.
+// Moving sprites in whole screen pixels shifts every edge alike, so the art
+// doesn't shimmer as it moves.
 export function drawSprite(sprite, name, x, y) {
   const path = spritePaths[name];
   if (sprite.getAttribute("d") !== path) sprite.setAttribute("d", path);
 
-  sprite.setAttribute("transform", `translate(${Math.round(x)} ${Math.round(y)})`);
+  sprite.setAttribute("transform", `translate(${snapToPixel(x)} ${snapToPixel(y)})`);
 }
 
 // Hitboxes are [x, y, width, height]. Each sprite's are measured from its
