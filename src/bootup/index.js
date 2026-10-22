@@ -20,6 +20,8 @@ export function runBootup() {
   randoms.innerHTML = "";
   bootupAudio.play();
 
+  Array.from(document.querySelectorAll("section")).forEach((section) => (section.scrollTop = 0));
+
   const bootupInterval = setInterval(() => {
     requestAnimationFrame(() => {
       const div = document.createElement("div");

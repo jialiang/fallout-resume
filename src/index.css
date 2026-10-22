@@ -85,6 +85,10 @@ section:target ~ #start {
   visibility: hidden;
 }
 
+#bootup {
+  overflow-y: hidden;
+}
+
 h2,
 p,
 ul,
