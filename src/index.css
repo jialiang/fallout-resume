@@ -243,6 +243,12 @@ button::-moz-focus-inner {
   height: 100%;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .scanlines {
+    display: none;
+  }
+}
+
 .frame {
   position: absolute;
   top: 0;
