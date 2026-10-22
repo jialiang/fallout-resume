@@ -181,6 +181,7 @@ li button {
   font-size: inherit;
   line-height: inherit;
   font-family: inherit;
+  letter-spacing: inherit;
   text-decoration: inherit;
   text-shadow: inherit;
 }
@@ -259,6 +260,7 @@ button::-moz-focus-inner {
   color: #757575;
   font-size: 2.5vh;
   font-family: inherit;
+  letter-spacing: inherit;
 }
 
 @media (max-aspect-ratio: 3/4) {
