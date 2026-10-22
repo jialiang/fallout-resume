@@ -6,7 +6,7 @@ div[class*="blur"] {
   z-index: 1;
   box-sizing: border-box;
   background: #1a1a1a;
-  padding: 15vh 9%;
+  padding: 10vh calc(10% + 1em) 10vh 10%;
   width: 100%;
   pointer-events: none;
   color: transparent;
@@ -14,7 +14,7 @@ div[class*="blur"] {
 
 @media (max-aspect-ratio: 3/4) {
   div[class*="blur"] {
-    padding: 20vw 9%;
+    padding: calc(10vw * 4 / 3) calc(10% + 1em) calc(10vw * 4 / 3) 10%;
   }
 }
 
