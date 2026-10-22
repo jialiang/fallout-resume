@@ -1,5 +1,6 @@
 @import "./blur/index.css";
 @import "./holotape/index.css";
+@import "./scrollbar/index.css";
 
 @font-face {
   font-style: normal;

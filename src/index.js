@@ -6,6 +6,7 @@ import { applyFisheye } from "./fisheye";
 import { enterHolotape, initHolotape } from "./holotape";
 import { initNavigation, navigate } from "./navigation";
 import { getIsRadioEnabled, initRadio, pauseRadio, resumeRadio } from "./radio";
+import { initScrollbar } from "./scrollbar";
 
 async function bootUp() {
   if (getIsBootingUp()) return;
@@ -87,6 +88,7 @@ initColor();
 initRadio();
 initSfx();
 initNavigation(onEnterSection);
+initScrollbar();
 restoreRadio();
 
 window.addEventListener("load", preloadAudioAfterPaint);
