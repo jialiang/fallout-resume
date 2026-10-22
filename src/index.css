@@ -23,13 +23,28 @@ html {
   letter-spacing: 0.05em;
 }
 
+/* Caps the text at 7% of the section's width
+   1.25em is 7% of 17.857em,
+   1.25em is 7% of width when height is 13.393em */
+@media (max-width: 17.857em) and (max-aspect-ratio: 4/3) {
+  html {
+    font-size: 7vw;
+  }
+}
+
+@media (max-height: 13.393em) and (min-aspect-ratio: 4/3) {
+  html {
+    font-size: calc(7vh * 4 / 3);
+    font-size: calc(7dvh * 4 / 3);
+  }
+}
+
 body {
   position: relative;
   margin: auto;
   background: #1a1a1a;
   width: 100%;
   max-width: calc(100vh * 4 / 3);
-  /* Browsers without dvh drop this line and keep the vh one above. */
   max-width: calc(100dvh * 4 / 3);
   height: 100%;
   max-height: calc(100vw * 4 / 3);
