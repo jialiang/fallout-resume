@@ -28,5 +28,7 @@ export function initScrollbar() {
   // The web font can change how tall the content is once it loads.
   window.addEventListener("load", updateThumb);
 
-  updateThumb();
+  // Measuring now would force a layout before the web font arrives, which
+  // the font then throws away. The first frame lays out the page anyway.
+  requestAnimationFrame(updateThumb);
 }
