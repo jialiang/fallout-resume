@@ -107,6 +107,8 @@ ul {
 
 li {
   display: flex;
+  /* Lines labels up with the text inside padded buttons */
+  align-items: baseline;
   margin-bottom: 1em;
 }
 
@@ -130,6 +132,7 @@ li span:nth-child(2) {
 @media (max-width: 480px) {
   li {
     flex-direction: column;
+    align-items: stretch;
   }
 
   li span:nth-child(1) {
