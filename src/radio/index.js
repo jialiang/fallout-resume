@@ -7,6 +7,7 @@ const isTabScoped = true;
 
 let isRadioEnabled = false;
 let currentStation = null;
+let pendingStart = null;
 let cancelPendingStart = null;
 
 function getStations() {
@@ -51,25 +52,32 @@ function startRadio() {
       });
   };
 
+  // Don't start radio again if it's already started or queued to start.
+  if (!radio.paused) return Promise.resolve(true);
+  if (pendingStart) return pendingStart;
+
   // A station that failed must reload, even if its metadata had loaded before.
   if (radio.readyState >= 1 && !radio.error) return Promise.resolve(play());
 
   // The media events only start once play() is called, after the metadata.
   setIsBuffering(true);
 
-  return new Promise((resolve) => {
+  pendingStart = new Promise((resolve) => {
     cancelPendingStart = () => {
       radio.onloadedmetadata = null;
       resolve(false);
     };
 
     radio.onloadedmetadata = () => {
+      pendingStart = null;
       cancelPendingStart = null;
       resolve(play());
     };
 
     radio.load();
   });
+
+  return pendingStart;
 }
 
 function updateRadioButtons() {
@@ -124,6 +132,7 @@ function cycleStation() {
 // Also drops a start still waiting on the metadata
 export function pauseRadio() {
   if (cancelPendingStart) cancelPendingStart();
+  pendingStart = null;
   cancelPendingStart = null;
 
   getRadio().pause();
