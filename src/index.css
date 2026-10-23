@@ -224,8 +224,10 @@ button::-moz-focus-inner {
   top: 0;
   left: 0;
   z-index: 1;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 50%, rgba(120, 120, 120, 0.1) 0) 0
-    0/100% 4px repeat-y;
+  background:
+    linear-gradient(to bottom, rgba(30, 0, 0, 0.2) 50%, rgba(0, 30, 30, 0.2) 0) 0 0/100% 5px
+      repeat-y,
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0) 0) 0 0/100% 2px repeat-y;
   width: 100%;
   height: 101%;
   overflow: hidden;
