@@ -1,3 +1,4 @@
+import { preloadRadio } from "../radio";
 import { getIsTransitioning } from "../transition";
 
 const clickEffect = "./audio/click.mp3";
@@ -31,7 +32,6 @@ export function playStatic() {
 }
 
 // Once the page has loaded, warm the cache so audio plays without fetch delay.
-// The radio is a large file, so it only fetches metadata.
 export function preloadAudio() {
   [clickEffect, hoverEffect].forEach((src) => new Audio(src));
 
@@ -42,11 +42,7 @@ export function preloadAudio() {
     audio.load();
   });
 
-  const radio = document.querySelector(".mojaveMusicRadio");
-  if (!radio.paused) return;
-
-  radio.preload = "metadata";
-  radio.load();
+  preloadRadio();
 }
 
 export function initSfx() {

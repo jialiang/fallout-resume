@@ -30,15 +30,19 @@ function onEnterSection(hash) {
   if (hash === "#holotape") enterHolotape();
 }
 
-// Skipped before and during boot-up, which starts the radio itself afterwards
-// and on the radio buttons, which are about to switch it off.
+// Skipped before and during boot-up (which starts the radio itself afterwards)
+// and on the radio buttons (which are about to switch it off or change station)
 function resumeRadioOnFirstInteraction() {
   const interactions = ["click", "keydown", "touchend"];
 
   const resume = (event) => {
     interactions.forEach((type) => window.removeEventListener(type, resume, true));
 
-    const isRadioButton = event.target.closest && event.target.closest(".radioButton, .radio");
+    let isRadioButton = false;
+
+    if (event.target.closest) {
+      isRadioButton = event.target.closest(".radioButton, .radioStationButton, .radio");
+    }
 
     if (!getIsBeforeBootup() && !isRadioButton && !getIsBootingUp()) resumeRadio();
   };

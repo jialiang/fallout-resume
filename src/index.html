@@ -189,6 +189,17 @@
             >
           </li>
           <li>
+            <span id="radio-station-label">Station:</span
+            ><span
+              ><button
+                id="radio-station-button"
+                class="radioStationButton"
+                aria-labelledby="radio-station-label radio-station-button">
+                [New Vegas Radio]
+              </button></span
+            >
+          </li>
+          <li>
             <span id="text-color-label">Text Color:</span
             ><span
               ><button
@@ -606,7 +617,21 @@
     <audio class="bootupAudio" src="./audio/bootup.mp3" preload="none"></audio>
     <audio class="staticAudio" src="./audio/static.mp3" preload="none"></audio>
 
-    <audio class="mojaveMusicRadio" src="RADIO_URL" preload="none"></audio>
+    <audio
+      class="radioStation"
+      data-station="New Vegas Radio"
+      src="R2:fallout-resume/radio.m4a"
+      preload="none"></audio>
+    <audio
+      class="radioStation"
+      data-station="Diamond City Radio"
+      src="R2:fallout-resume/radio_MNa5SYEc8Mo.m4a"
+      preload="none"></audio>
+    <audio
+      class="radioStation"
+      data-station="Galaxy News Radio"
+      src="R2:fallout-resume/radio_LxM7soNJC1A.m4a"
+      preload="none"></audio>
 
     <script src="index.js"></script>
   </body>

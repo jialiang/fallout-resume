@@ -5,8 +5,10 @@ import { cpSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 const outputDirectory = "dist";
 const staticDirectory = "src/static";
 
-const radioObjectKey = "fallout-resume/radio.m4a";
 const signedURLLifetimeSeconds = 7 * 24 * 60 * 60;
+
+// Radio stations name their R2 object as src="R2:<key>" in src/index.html.
+const r2SourcePattern = /src="R2:([^"]+)"/g;
 
 // esbuild doesn't read browserslist, so its queries ("chrome >= 61") are
 // turned into esbuild targets ("chrome61"). Safari on iOS is "ios" there.
@@ -47,10 +49,10 @@ function getBuildDateTime() {
   return `${year}-${month}-${day}T00:00:00${sign}${hours}:${minutes}`;
 }
 
-// The radio streams from a private R2 bucket through a signed URL, which R2 caps at 7 days,
-// so the scheduler in the huge-assets repo re-runs the deploy every 5 days.
+// The radio streams from a private R2 bucket through signed URLs, which R2 caps at 7 days,
+// so the scheduler repo re-runs the deploy every 5 days.
 // The secrets come from the repo in CI and from a gitignored .env locally.
-async function getRadioURL() {
+function createR2Signer() {
   const secretNames = ["R2_ACCOUNT_ID", "R2_ACCESS_KEY_ID", "R2_SECRET_ACCESS_KEY", "R2_BUCKET"];
   const missingNames = secretNames.filter((name) => !process.env[name]);
 
@@ -67,26 +69,32 @@ async function getRadioURL() {
     secretAccessKey: R2_SECRET_ACCESS_KEY,
   });
 
-  const endpoint = `https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com`;
-  const url = `${endpoint}/${R2_BUCKET}/${radioObjectKey}?X-Amz-Expires=${signedURLLifetimeSeconds}`;
-  const signed = await client.sign(new Request(url), { aws: { signQuery: true } });
+  const bucketURL = `https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com/${R2_BUCKET}`;
 
-  return signed.url.replaceAll("&", "&amp;");
+  return async (objectKey) => {
+    const url = `${bucketURL}/${objectKey}?X-Amz-Expires=${signedURLLifetimeSeconds}`;
+    const signed = await client.sign(new Request(url), { aws: { signQuery: true } });
+
+    return signed.url.replaceAll("&", "&amp;");
+  };
 }
 
-const radioURL = await getRadioURL();
+const sourceHtml = readFileSync("src/index.html", "utf8");
+const signURL = createR2Signer();
+
+const objectKeys = Array.from(sourceHtml.matchAll(r2SourcePattern), ([, objectKey]) => objectKey);
+const signedURLs = await Promise.all(objectKeys.map(signURL));
+const signedURLByKey = new Map(
+  objectKeys.map((objectKey, index) => [objectKey, signedURLs[index]])
+);
 
 // Replaced with functions because the bundled code can contain "$&" which a replacement string would expand.
-const html = readFileSync("src/index.html", "utf8")
+const html = sourceHtml
   .replace('<link rel="stylesheet" href="index.css" />', () => `<style>${bundled(".css")}</style>`)
   .replace('<script src="index.js"></script>', () => `<script>${bundled(".js")}</script>`)
-  .replace('src="RADIO_URL"', () => `src="${radioURL}"`)
+  .replace(r2SourcePattern, (match, objectKey) => `src="${signedURLByKey.get(objectKey)}"`)
   .replace('"dateModified": "BUILD_TIME"', () => `"dateModified": "${getBuildDateTime()}"`)
   .replace("<span>BUILD_DATE</span>", () => `<span>${day}/${month}/${year}</span>`);
-
-if (html.includes('href="index.css"') || html.includes('src="index.js"')) {
-  throw new Error("Couldn't inline the bundle: the tags in src/index.html changed");
-}
 
 cpSync(staticDirectory, outputDirectory, { recursive: true });
 writeFileSync(`${outputDirectory}/index.html`, html);
