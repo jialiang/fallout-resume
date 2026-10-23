@@ -1,4 +1,3 @@
-import { preloadRadio } from "../radio";
 import { getIsTransitioning } from "../transition";
 
 const clickEffect = "./audio/click.mp3";
@@ -9,6 +8,9 @@ function playEffect(src) {
   audio.volume = 0.5;
   audio.play();
 }
+
+export const playClick = () => playEffect(clickEffect);
+export const playHover = () => playEffect(hoverEffect);
 
 export function pauseHum() {
   document.querySelector(".humAudio").pause();
@@ -41,29 +43,21 @@ export function preloadAudio() {
     audio.preload = "auto";
     audio.load();
   });
-
-  preloadRadio();
 }
 
 export function initSfx() {
   Array.from(document.querySelectorAll("button, a")).forEach((elem) => {
     elem.addEventListener("mouseenter", () => {
       if (getIsTransitioning()) return;
-      playEffect(hoverEffect);
+      playHover();
     });
 
-    if (elem.tagName === "BUTTON") {
-      elem.addEventListener("click", () => {
-        playEffect(clickEffect);
-      });
-    }
+    if (elem.tagName === "BUTTON") elem.addEventListener("click", playClick);
   });
 
   window.addEventListener("keydown", (e) => {
-    if (e.key === "Tab") playEffect(hoverEffect);
+    if (e.key === "Tab") playHover();
   });
 
-  window.addEventListener("hashchange", () => {
-    playEffect(clickEffect);
-  });
+  window.addEventListener("hashchange", playClick);
 }

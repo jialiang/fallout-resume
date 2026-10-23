@@ -1,3 +1,4 @@
+import { playClick } from "../audio";
 import { getIsBeforeBootup } from "../bootup";
 import { changeWithTransition } from "../transition";
 import { readSetting, saveSetting } from "../helpers";
@@ -50,7 +51,8 @@ function startRadio() {
       });
   };
 
-  if (radio.readyState >= 1) return Promise.resolve(play());
+  // A station that failed must reload, even if its metadata had loaded before.
+  if (radio.readyState >= 1 && !radio.error) return Promise.resolve(play());
 
   // The media events only start once play() is called, after the metadata.
   setIsBuffering(true);
@@ -176,6 +178,13 @@ export function initRadio() {
 
     ["playing", "pause", "error"].forEach((type) => {
       station.addEventListener(type, setIsBufferingIfCurrent(false));
+    });
+
+    station.addEventListener("error", () => {
+      if (station !== currentStation || !isRadioEnabled || getIsBeforeBootup()) return;
+
+      playClick();
+      setRadioEnabled(false);
     });
   });
 }

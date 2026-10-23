@@ -5,7 +5,7 @@ import { initColor } from "./color";
 import { applyFisheye } from "./fisheye";
 import { enterHolotape, initHolotape } from "./holotape";
 import { initNavigation, navigate } from "./navigation";
-import { getIsRadioEnabled, initRadio, pauseRadio, resumeRadio } from "./radio";
+import { getIsRadioEnabled, initRadio, pauseRadio, preloadRadio, resumeRadio } from "./radio";
 import { initScrollbar } from "./scrollbar";
 
 async function bootUp() {
@@ -59,6 +59,11 @@ async function restoreRadio() {
 }
 
 function preloadAudioAfterPaint() {
+  const preload = () => {
+    preloadAudio();
+    preloadRadio();
+  };
+
   if (window.PerformanceObserver) {
     const entryTypes = PerformanceObserver.supportedEntryTypes || [];
 
@@ -72,7 +77,7 @@ function preloadAudioAfterPaint() {
       const start = () => {
         clearTimeout(backupTimer);
         observer.disconnect();
-        preloadAudio();
+        preload();
       };
 
       observer.observe({ type: "paint", buffered: true });
@@ -82,7 +87,7 @@ function preloadAudioAfterPaint() {
     }
   }
 
-  preloadAudio();
+  preload();
 }
 
 applyFisheye();
