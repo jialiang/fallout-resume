@@ -7,7 +7,7 @@ export function getIsBootingUp() {
 }
 
 export function getIsBeforeBootup() {
-  return !location.hash || location.hash === "#bootup";
+  return !location.hash || location.hash === "#start" || location.hash === "#bootup";
 }
 
 export function runBootup() {

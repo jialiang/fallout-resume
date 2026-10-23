@@ -25,8 +25,14 @@ async function bootUp() {
   resumeRadio();
 }
 
+function shutDown() {
+  pauseRadio();
+  pauseHum();
+}
+
 function onEnterSection(hash) {
   if (hash === "#bootup") bootUp();
+  if (hash === "#start") shutDown();
   if (hash === "#holotape") enterHolotape();
 }
 
