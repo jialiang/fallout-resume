@@ -27,10 +27,19 @@ export function restartHum() {
 export function playStatic() {
   const staticAudio = document.querySelector(".staticAudio");
 
+  // Resolves however it ends, so boot-up always goes on to start the radio.
   return new Promise((resolve) => {
     staticAudio.onended = resolve;
-    staticAudio.play();
+    staticAudio.onerror = resolve;
+
+    // Edge 16 returns nothing here instead of a promise.
+    const playing = staticAudio.play();
+    if (playing) playing.catch(resolve);
   });
+}
+
+export function getIsStaticPlaying() {
+  return !document.querySelector(".staticAudio").paused;
 }
 
 // Once the page has loaded, warm the cache so audio plays without fetch delay.

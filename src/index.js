@@ -1,4 +1,11 @@
-import { initSfx, pauseHum, playStatic, preloadAudio, restartHum } from "./audio";
+import {
+  getIsStaticPlaying,
+  initSfx,
+  pauseHum,
+  playStatic,
+  preloadAudio,
+  restartHum,
+} from "./audio";
 import { createBlurState } from "./blur";
 import { getIsBeforeBootup, getIsBootingUp, runBootup } from "./bootup";
 import { initColor } from "./color";
@@ -30,10 +37,13 @@ function shutDown() {
   pauseHum();
 }
 
+// Boot-up starts the radio itself once its static ends.
 function onEnterSection(hash) {
   if (hash === "#bootup") bootUp();
   if (hash === "#start") shutDown();
   if (hash === "#holotape") enterHolotape();
+
+  if (!getIsStaticPlaying()) restoreRadio();
 }
 
 // Skipped before and during boot-up (which starts the radio itself afterwards)
@@ -104,6 +114,5 @@ initRadio();
 initSfx();
 initNavigation(onEnterSection);
 initScrollbar();
-restoreRadio();
 
 window.addEventListener("load", preloadAudioAfterPaint);
