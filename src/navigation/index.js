@@ -1,4 +1,4 @@
-import { clearBlur, getIsBlurred } from "../blur";
+import { getIsBlurred } from "../blur";
 
 import { blurIn, blurOut, getIsTransitioning, getSection, runExclusive } from "../transition";
 
@@ -55,7 +55,7 @@ export function initNavigation(onEnterSection) {
   if (location.hash && !isKnownSection) location.replace("#");
 
   // The first section shows straight away: only later moves blur in.
-  clearBlur(getSection());
+  blurIn(getSection(), true);
 
   // Waits for the browser to jump to the section named in the URL, which
   // focuses the section and would undo any focus set by entering it.

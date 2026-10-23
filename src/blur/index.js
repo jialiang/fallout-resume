@@ -47,10 +47,6 @@ function showBlurLevel(section, value) {
   });
 }
 
-export function clearBlur(section) {
-  showBlurLevel(section, 0);
-}
-
 export function getIsBlurred(section) {
   return blurs[section.id].some((layer) => layer.style.opacity === "1");
 }

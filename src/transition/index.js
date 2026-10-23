@@ -13,7 +13,8 @@ export function getSection(hash = location.hash) {
 export const blurOut = (section = getSection(), isImmediate) =>
   blurSection(section, isImmediate ? 20 : 0, 20);
 
-export const blurIn = () => blurSection(getSection(), 20, 0);
+export const blurIn = (section = getSection(), isImmediate) =>
+  blurSection(section, isImmediate ? 0 : 20, 0);
 
 export async function runExclusive(steps) {
   if (isTransitioning) return;
