@@ -6,12 +6,14 @@ export function getIsTransitioning() {
   return isTransitioning;
 }
 
-export function getCurrentSection() {
-  return document.getElementById(location.hash.slice(1)) || document.querySelector("#start");
+export function getSection(hash = location.hash) {
+  return document.getElementById(hash.slice(1)) || document.querySelector("#start");
 }
 
-export const blurOut = () => blurSection(getCurrentSection(), 0, 20);
-export const blurIn = () => blurSection(getCurrentSection(), 20, 0);
+export const blurOut = (section = getSection(), isImmediate) =>
+  blurSection(section, isImmediate ? 20 : 0, 20);
+
+export const blurIn = () => blurSection(getSection(), 20, 0);
 
 export async function runExclusive(steps) {
   if (isTransitioning) return;

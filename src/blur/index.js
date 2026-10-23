@@ -56,6 +56,8 @@ export function getIsBlurred(section) {
 }
 
 export async function blurSection(section, initialValue, finalValue) {
+  if (initialValue === finalValue) return showBlurLevel(section, finalValue);
+
   const step = finalValue > initialValue ? blurStep : -blurStep;
 
   for (let value = initialValue + step; value !== finalValue + step; value += step) {

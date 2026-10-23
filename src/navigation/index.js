@@ -1,12 +1,6 @@
 import { clearBlur, getIsBlurred } from "../blur";
 
-import {
-  blurIn,
-  blurOut,
-  getCurrentSection,
-  getIsTransitioning,
-  runExclusive,
-} from "../transition";
+import { blurIn, blurOut, getIsTransitioning, getSection, runExclusive } from "../transition";
 
 // Queue blur out for hash change that happen before current transition finishes.
 let isEntryPending = false;
@@ -16,10 +10,14 @@ function runPendingEntry() {
   if (!isEntryPending) return;
   isEntryPending = false;
 
-  if (getIsBlurred(getCurrentSection())) enterCurrentSection();
+  if (getIsBlurred(getSection())) enterCurrentSection();
 }
 
-function enterCurrentSection() {
+// Back and Forward skip the blur out in navigate(), so the previous section is blurred here.
+function enterCurrentSection(event) {
+  const previousSection = event && getSection(new URL(event.oldURL).hash);
+  if (previousSection && previousSection !== getSection()) blurOut(previousSection, true);
+
   if (getIsTransitioning()) {
     isEntryPending = true;
     return;
@@ -57,7 +55,7 @@ export function initNavigation(onEnterSection) {
   if (location.hash && !isKnownSection) location.replace("#");
 
   // The first section shows straight away: only later moves blur in.
-  clearBlur(getCurrentSection());
+  clearBlur(getSection());
 
   // Waits for the browser to jump to the section named in the URL, which
   // focuses the section and would undo any focus set by entering it.

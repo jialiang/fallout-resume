@@ -1,7 +1,7 @@
-import { getCurrentSection } from "../transition";
+import { getSection } from "../transition";
 
 function updateThumb() {
-  const section = getCurrentSection();
+  const section = getSection();
   const track = document.querySelector(".scrollbar");
   const thumb = document.querySelector(".scrollbarThumb");
   const visibleShare = section.clientHeight / section.scrollHeight;
