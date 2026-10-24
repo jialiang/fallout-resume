@@ -103,6 +103,11 @@ ul,
   font-size: 1em;
 }
 
+.randoms div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .banner,
 ul,
 .gap-after {
@@ -138,7 +143,9 @@ li span:nth-child(2) {
   min-width: 0;
 }
 
-@media (max-width: 480px) {
+/* Section is at most 4/3 of the viewport height wide,
+   so a short viewport narrows it below 30em too. */
+@media (max-width: 30em), (max-height: 22.5em) {
   li {
     flex-direction: column;
     align-items: stretch;
@@ -146,6 +153,11 @@ li span:nth-child(2) {
 
   li span:nth-child(1) {
     max-width: 100%;
+  }
+
+  li span:nth-child(2) a,
+  li span:nth-child(2) button {
+    margin-top: 0.125em;
   }
 }
 
@@ -182,7 +194,7 @@ li a,
 li button {
   display: inline-block;
   cursor: pointer;
-  margin: 0 0 -0.5em -0.25em;
+  margin: 0 0 -0.25em -0.375em;
   border: none;
   background: transparent;
   padding: 0.25em 0.25em 0.375em 0.25em;
@@ -324,6 +336,8 @@ button::-moz-focus-inner {
 }
 
 .single-line {
+  display: block;
+  overflow: hidden;
   white-space: nowrap;
 }
 
