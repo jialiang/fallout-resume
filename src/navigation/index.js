@@ -25,7 +25,7 @@ function enterCurrentSection(event) {
 
   runExclusive(async () => {
     await blurIn();
-    onEnter(location.hash);
+    onEnter();
   }).then(runPendingEntry);
 }
 
@@ -59,5 +59,5 @@ export function initNavigation(onEnterSection) {
 
   // Waits for the browser to jump to the section named in the URL, which
   // focuses the section and would undo any focus set by entering it.
-  requestAnimationFrame(() => onEnter(location.hash));
+  requestAnimationFrame(() => onEnter());
 }

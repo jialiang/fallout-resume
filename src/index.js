@@ -7,13 +7,14 @@ import {
   restartHum,
 } from "./audio";
 import { createBlurState } from "./blur";
-import { getIsBeforeBootup, getIsBootingUp, runBootup } from "./bootup";
+import { getIsBeforeBootup, getIsBootingUp, initBootup, runBootup } from "./bootup";
 import { initColor } from "./color";
 import { applyFisheye } from "./fisheye";
 import { enterHolotape, initHolotape } from "./holotape";
 import { initNavigation, navigate } from "./navigation";
 import { getIsRadioEnabled, initRadio, pauseRadio, preloadRadio, resumeRadio } from "./radio";
 import { initScrollbar } from "./scrollbar";
+import { getSection } from "./transition";
 
 async function bootUp() {
   if (getIsBootingUp()) return;
@@ -23,11 +24,12 @@ async function bootUp() {
 
   await runBootup();
 
+  const currentSectionId = getSection().id;
+
+  if (currentSectionId === "start") return;
+  if (currentSectionId === "bootup") navigate("#mainmenu");
+
   restartHum();
-
-  // Leaving early (with Back) ends the boot-up without moving the user on.
-  if (location.hash === "#bootup") navigate("#mainmenu");
-
   await playStatic();
   resumeRadio();
 }
@@ -38,10 +40,12 @@ function shutDown() {
 }
 
 // Boot-up starts the radio itself once its static ends.
-function onEnterSection(hash) {
-  if (hash === "#bootup") bootUp();
-  if (hash === "#start") shutDown();
-  if (hash === "#holotape") enterHolotape();
+function onEnterSection() {
+  const currentSectionId = getSection().id;
+
+  if (currentSectionId === "bootup") bootUp();
+  if (currentSectionId === "start") shutDown();
+  if (currentSectionId === "holotape") enterHolotape();
 
   if (!getIsStaticPlaying()) restoreRadio();
 }
@@ -113,6 +117,7 @@ initColor();
 initRadio();
 initSfx();
 initNavigation(onEnterSection);
+initBootup();
 initScrollbar();
 
 window.addEventListener("load", preloadAudioAfterPaint);

@@ -2,12 +2,30 @@ const fallbackDuration = 4500;
 
 let isBootingUp = false;
 
+let bootupInterval = 0;
+let fallbackTimer = 0;
+
+let resolveBootup = () => {};
+
 export function getIsBootingUp() {
   return isBootingUp;
 }
 
 export function getIsBeforeBootup() {
   return !location.hash || location.hash === "#start" || location.hash === "#bootup";
+}
+
+export function finishBootup() {
+  if (!isBootingUp) return;
+  isBootingUp = false;
+
+  clearInterval(bootupInterval);
+  clearTimeout(fallbackTimer);
+
+  document.querySelector(".randoms").innerHTML = "";
+  document.querySelector(".bootupAudio").pause();
+
+  resolveBootup();
 }
 
 export function runBootup() {
@@ -18,11 +36,12 @@ export function runBootup() {
   const bootupAudio = document.querySelector(".bootupAudio");
 
   randoms.innerHTML = "";
+  bootupAudio.currentTime = 0;
   bootupAudio.play();
 
   Array.from(document.querySelectorAll("section")).forEach((section) => (section.scrollTop = 0));
 
-  const bootupInterval = setInterval(() => {
+  bootupInterval = setInterval(() => {
     requestAnimationFrame(() => {
       const div = document.createElement("div");
       div.textContent = Math.random();
@@ -32,26 +51,12 @@ export function runBootup() {
     });
   }, 50);
 
-  return new Promise((resolve) => {
-    let hasFinished = false;
+  fallbackTimer = setTimeout(finishBootup, fallbackDuration);
+  bootupAudio.onended = finishBootup;
 
-    const finish = () => {
-      if (hasFinished) return;
-      hasFinished = true;
-      isBootingUp = false;
+  return new Promise((resolve) => (resolveBootup = resolve));
+}
 
-      clearInterval(bootupInterval);
-      randoms.innerHTML = "";
-
-      bootupAudio.pause();
-      bootupAudio.currentTime = 0;
-
-      window.removeEventListener("hashchange", finish);
-      resolve();
-    };
-
-    bootupAudio.onended = finish;
-    setTimeout(finish, fallbackDuration);
-    window.addEventListener("hashchange", finish);
-  });
+export function initBootup() {
+  window.addEventListener("hashchange", finishBootup);
 }
