@@ -76,7 +76,9 @@ section {
   padding: 10vh calc(10% + 1em) 10vh 10%;
   width: 100%;
   height: 100%;
-  overflow-y: auto;
+  /* Force stable width for dino game,
+     e.g. font loading, text changes etc */
+  overflow-y: scroll;
 }
 
 section:target,

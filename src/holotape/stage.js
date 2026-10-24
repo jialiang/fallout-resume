@@ -41,24 +41,16 @@ export function fitScreen() {
   // The first is the real screen, the rest are its copies in the blur layers,
   // sized alike so the layers line up with it.
   const screens = Array.from(document.querySelectorAll(".holotapeScreen"));
-  let height = 0;
+  const width = screens[0].clientWidth;
+  const height = Math.min(width / 2, getWidestWidth(screens[0]) / 4);
 
-  // A new height can add or remove the section's scrollbar, which changes the
-  // width, so it measures again until the width settles.
-  for (let pass = 0; pass < 3; pass++) {
-    const width = screens[0].clientWidth;
-    height = Math.min(width / 2, getWidestWidth(screens[0]) / 4);
+  // Replaces the CSS padding that sizes them until this runs.
+  screens.forEach((screen) => {
+    screen.style.paddingTop = "0";
+    screen.style.height = `${height}px`;
+  });
 
-    // Replaces the CSS padding that sizes them until this runs.
-    screens.forEach((screen) => {
-      screen.style.paddingTop = "0";
-      screen.style.height = `${height}px`;
-    });
-
-    if (screens[0].clientWidth === width) break;
-  }
-
-  visibleWidth = Math.min(fullWidth, (screens[0].clientWidth / height) * gameHeight);
+  visibleWidth = Math.min(fullWidth, (width / height) * gameHeight);
   pixelsPerUnit = (height / gameHeight) * window.devicePixelRatio;
   screens[0].querySelector("svg").setAttribute("viewBox", `0 0 ${visibleWidth} ${gameHeight}`);
 }

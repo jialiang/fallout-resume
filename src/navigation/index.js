@@ -56,8 +56,5 @@ export function initNavigation(onEnterSection) {
 
   // The first section shows straight away: only later moves blur in.
   blurIn(getSection(), true);
-
-  // Waits for the browser to jump to the section named in the URL, which
-  // focuses the section and would undo any focus set by entering it.
-  requestAnimationFrame(() => onEnter());
+  onEnter();
 }

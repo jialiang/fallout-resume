@@ -51,9 +51,9 @@ const jumpKeys = [" ", "Spacebar", "ArrowUp", "Up"];
 const duckKeys = ["ArrowDown", "Down"];
 
 const statusMessages = {
-  ready: "Press SPACE or tap the screen to start",
+  ready: "To start: Tap game or TAB to focus then SPACE",
   running: "SPACE, UP or tap to jump, DOWN to duck",
-  paused: "Paused. Press SPACE or tap to resume",
+  paused: "Paused. To resume: Tap game or TAB to focus then SPACE",
 };
 
 // One of "ready", "running", "paused" or "crashed".
@@ -248,7 +248,6 @@ function onClick() {
 // Fits again in case the layout shifted (a late font, say) without a resize.
 export function enterHolotape() {
   fitScreen();
-  getGameArea().focus();
 }
 
 export function initHolotape() {
