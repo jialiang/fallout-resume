@@ -24,7 +24,7 @@ html {
      which would shift the page. */
   line-height: 1.375;
   font-family: "Noto Sans Mono", monospace;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.0625em;
 }
 
 /* Caps the text at 7% of the section's width
@@ -64,7 +64,7 @@ main {
   color: var(--text);
   text-shadow:
     0.25em 0.25em 1em var(--glow),
-    0 0 0.05em var(--edge);
+    0 0 0.0625em var(--edge);
 }
 
 section {
@@ -183,7 +183,7 @@ li button {
   margin: 0 0 -0.5em -0.25em;
   border: none;
   background: transparent;
-  padding: 0.25em 0.25em 0.35em 0.25em;
+  padding: 0.25em 0.25em 0.375em 0.25em;
   color: inherit;
   font-weight: inherit;
   font-size: inherit;
@@ -199,7 +199,7 @@ main a:focus,
 main button:hover,
 main button:focus {
   color: black;
-  text-shadow: 0 0 0.05em rgba(0, 0, 0, 0.7);
+  text-shadow: 0 0 0.0625em rgba(0, 0, 0, 0.7);
 }
 
 a,

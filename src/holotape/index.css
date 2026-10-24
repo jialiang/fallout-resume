@@ -1,7 +1,7 @@
 .holotapeGame {
   cursor: pointer;
   margin-bottom: 1.5em;
-  border: 0.1em dashed;
+  border: 0.125em dashed;
   padding: 0.5em;
   -webkit-tap-highlight-color: transparent;
 }
