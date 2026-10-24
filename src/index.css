@@ -186,14 +186,6 @@ li button {
   border: none;
   background: transparent;
   padding: 0.25em 0.25em 0.375em 0.25em;
-  color: inherit;
-  font-weight: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  font-family: inherit;
-  letter-spacing: inherit;
-  text-decoration: inherit;
-  text-shadow: inherit;
 }
 
 main a:hover,
@@ -206,6 +198,15 @@ main button:focus {
 
 a,
 button {
+  color: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  font-family: inherit;
+  letter-spacing: inherit;
+  text-align: inherit;
+  text-decoration: inherit;
+  text-shadow: inherit;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -277,10 +278,7 @@ button::-moz-focus-inner {
   border: none;
   background: none;
   color: #757575;
-  font-weight: inherit;
   font-size: 3vh;
-  font-family: inherit;
-  letter-spacing: inherit;
 }
 
 @media (max-aspect-ratio: 3/4) {
