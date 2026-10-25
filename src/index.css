@@ -2,12 +2,10 @@
 @import "./holotape/index.css";
 @import "./scrollbar/index.css";
 
-/* The file holds the 500 weight (Medium) despite its name, which is kept because
-   performance-monitor's cache warmer fetches it by that path. */
 @font-face {
   font-style: normal;
   font-weight: 500;
-  src: url("Noto-Sans-Mono-Regular.woff2") format("woff2");
+  src: url("noto-sans-mono-medium.woff2") format("woff2");
   font-family: "Noto Sans Mono";
 }
 
