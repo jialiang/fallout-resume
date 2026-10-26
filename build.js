@@ -1,6 +1,9 @@
 import { AwsClient } from "aws4fetch";
 import { build } from "esbuild";
+import { subsetFonts } from "font-subsetter";
 import { cpSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+
+import * as strings from "./src/strings.js";
 
 const outputDirectory = "dist";
 const staticDirectory = "src/static";
@@ -98,3 +101,28 @@ const html = sourceHtml
 
 cpSync(staticDirectory, outputDirectory, { recursive: true });
 writeFileSync(`${outputDirectory}/index.html`, html);
+
+// Every string in src/strings.js. Functions are called with an empty value to
+// get their fixed text.
+const collectStrings = (value) => {
+  if (typeof value === "function") return collectStrings(value(""));
+  if (typeof value === "object") return Object.values(value).flatMap(collectStrings);
+
+  return [value];
+};
+
+// Digits for the random numbers on boot, ⊙ from a CSS `content` and the hyphen
+// a browser draws where a soft hyphen breaks a line.
+const runtimeCharacters = "0123456789.⊙‐";
+
+await subsetFonts({
+  html,
+  stylesheets: [bundled(".css")],
+  families: { "Noto Sans Mono": "noto-sans-mono" },
+  extraCharacters: {
+    "noto-sans-mono-medium": collectStrings(strings).join("") + runtimeCharacters,
+  },
+  sourceDirectory: "src/fonts",
+  outputDirectory,
+  formats: ["woff2"],
+});

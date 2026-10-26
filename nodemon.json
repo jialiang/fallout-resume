@@ -1,5 +1,5 @@
 {
   "watch": ["src", "build.js", "package.json"],
-  "ext": "js,css,html,json,png,woff2,mp3,m4a,flac",
+  "ext": "js,css,html,json,png,ttf,mp3,m4a,flac",
   "exec": "npm run build"
 }
