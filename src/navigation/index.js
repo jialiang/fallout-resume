@@ -1,5 +1,4 @@
 import { getIsBlurred } from "../blur";
-
 import { blurIn, blurOut, getIsTransitioning, getSection, runExclusive } from "../transition";
 
 // Queue blur out for hash change that happen before current transition finishes.

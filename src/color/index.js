@@ -1,6 +1,6 @@
-import { changeWithTransition } from "../transition";
 import { announceSetting, readSetting, saveSetting } from "../helpers";
 import { textColors } from "../strings";
+import { changeWithTransition } from "../transition";
 
 let currentColor = textColors[0];
 

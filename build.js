@@ -1,7 +1,8 @@
+import { cpSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+
 import { AwsClient } from "aws4fetch";
 import { build } from "esbuild";
 import { subsetFonts } from "font-subsetter";
-import { cpSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 
 import * as strings from "./src/strings.js";
 

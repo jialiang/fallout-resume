@@ -1,8 +1,8 @@
 import { playClick } from "../audio";
 import { getIsBeforeBootup } from "../bootup";
-import { changeWithTransition } from "../transition";
 import { announceSetting, readSetting, saveSetting } from "../helpers";
 import { radioStates } from "../strings";
+import { changeWithTransition } from "../transition";
 
 const isTabScoped = true;
 

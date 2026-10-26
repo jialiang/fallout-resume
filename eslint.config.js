@@ -1,9 +1,8 @@
-import compat from "eslint-plugin-compat";
-import globals from "globals";
-import importX from "eslint-plugin-import-x";
 import js from "@eslint/js";
-
+import compat from "eslint-plugin-compat";
+import importX from "eslint-plugin-import-x";
 import { defineConfig, globalIgnores } from "eslint/config";
+import globals from "globals";
 
 export default defineConfig([
   globalIgnores(["dist/"]),

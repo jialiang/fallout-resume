@@ -1,15 +1,5 @@
 import { readSetting, saveSetting } from "../helpers";
 import { holotapeMessages } from "../strings";
-
-import {
-  createLayer,
-  fitScreen,
-  frameDuration,
-  fullWidth,
-  getVisibleWidth,
-  isOverlapping,
-} from "./stage";
-
 import {
   crashDino,
   drawDino,
@@ -22,7 +12,6 @@ import {
   startJump,
   updateDino,
 } from "./dino";
-
 import {
   drawObstacles,
   getObstacleBoxes,
@@ -30,8 +19,15 @@ import {
   resetObstacles,
   updateObstacles,
 } from "./obstacles";
-
 import { drawScenery, initScenery, resetScenery, updateScenery } from "./scenery";
+import {
+  createLayer,
+  fitScreen,
+  frameDuration,
+  fullWidth,
+  getVisibleWidth,
+  isOverlapping,
+} from "./stage";
 
 const startSpeed = 6;
 // A screen showing less than the full width gives less warning, so it starts
