@@ -11,6 +11,12 @@ export function pickRandom(items) {
   return items[randomInteger(0, items.length - 1)];
 }
 
+// Reads a changed setting aloud, such as "Text Color: Cyan".
+export function announceSetting(labelId, value) {
+  const label = document.getElementById(labelId).textContent;
+  document.querySelector(".settingStatus").textContent = `${label} ${value}`;
+}
+
 export function readSetting(key, isTabScoped) {
   try {
     return (isTabScoped ? sessionStorage : localStorage).getItem(key);

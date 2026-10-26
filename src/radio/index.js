@@ -1,7 +1,8 @@
 import { playClick } from "../audio";
 import { getIsBeforeBootup } from "../bootup";
 import { changeWithTransition } from "../transition";
-import { readSetting, saveSetting } from "../helpers";
+import { announceSetting, readSetting, saveSetting } from "../helpers";
+import { radioStates } from "../strings";
 
 const isTabScoped = true;
 
@@ -9,6 +10,8 @@ let isRadioEnabled = false;
 let currentStation = null;
 let pendingStart = null;
 let cancelPendingStart = null;
+
+const stationNames = new Map();
 
 function getStations() {
   return Array.from(document.querySelectorAll(".radioStation"));
@@ -82,7 +85,7 @@ function startRadio() {
 
 function updateRadioButtons() {
   const radioButtons = Array.from(document.querySelectorAll(".radioButton"));
-  const label = `[${isRadioEnabled ? "Enabled" : "Disabled"}]`;
+  const label = `[${radioStates[isRadioEnabled]}]`;
 
   radioButtons.forEach((button) => (button.textContent = label));
 
@@ -103,11 +106,12 @@ function setRadioEnabled(isEnabled) {
 
 function toggleRadio() {
   changeWithTransition(() => setRadioEnabled(!isRadioEnabled));
+  announceSetting("radio-label", radioStates[!isRadioEnabled]);
 }
 
 function updateStationButtons() {
   const stationButtons = Array.from(document.querySelectorAll(".radioStationButton"));
-  const label = `[${currentStation.dataset.station}]`;
+  const label = `[${stationNames.get(currentStation)}]`;
 
   stationButtons.forEach((button) => (button.textContent = label));
 }
@@ -116,7 +120,7 @@ function setStation(station) {
   pauseRadio();
 
   currentStation = station;
-  saveSetting("radioStation", station.dataset.station);
+  saveSetting("radioStation", stationNames.get(station));
   updateStationButtons();
 
   if (isRadioEnabled && !getIsBeforeBootup()) startRadio();
@@ -124,9 +128,10 @@ function setStation(station) {
 
 function cycleStation() {
   const stations = getStations();
-  const nextIndex = (stations.indexOf(currentStation) + 1) % stations.length;
+  const nextStation = stations[(stations.indexOf(currentStation) + 1) % stations.length];
 
-  changeWithTransition(() => setStation(stations[nextIndex]));
+  changeWithTransition(() => setStation(nextStation));
+  announceSetting("radio-station-label", stationNames.get(nextStation));
 }
 
 // Also drops a start still waiting on the metadata
@@ -160,8 +165,10 @@ export function initRadio() {
   const stations = getStations();
   const savedStation = readSetting("radioStation");
 
+  stations.forEach((station) => stationNames.set(station, station.textContent.trim()));
+
   isRadioEnabled = readSetting("radio", isTabScoped) === "true";
-  currentStation = stations.find((station) => station.dataset.station === savedStation);
+  currentStation = stations.find((station) => stationNames.get(station) === savedStation);
   if (!currentStation) currentStation = stations[0];
 
   updateRadioButtons();

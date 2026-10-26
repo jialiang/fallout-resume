@@ -1,7 +1,6 @@
 import { changeWithTransition } from "../transition";
-import { readSetting, saveSetting } from "../helpers";
-
-const textColors = ["Lime", "Cyan", "Orange", "White"];
+import { announceSetting, readSetting, saveSetting } from "../helpers";
+import { textColors } from "../strings";
 
 let currentColor = textColors[0];
 
@@ -20,7 +19,10 @@ function applyColor(color) {
 
 function cycleColor() {
   const nextIndex = (textColors.indexOf(currentColor) + 1) % textColors.length;
-  changeWithTransition(() => applyColor(textColors[nextIndex]));
+  const nextColor = textColors[nextIndex];
+
+  changeWithTransition(() => applyColor(nextColor));
+  announceSetting("text-color-label", nextColor);
 }
 
 export function initColor() {

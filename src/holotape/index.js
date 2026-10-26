@@ -1,4 +1,5 @@
 import { readSetting, saveSetting } from "../helpers";
+import { holotapeMessages } from "../strings";
 
 import {
   createLayer,
@@ -49,12 +50,6 @@ const maxElapsed = 100;
 
 const jumpKeys = [" ", "Spacebar", "ArrowUp", "Up"];
 const duckKeys = ["ArrowDown", "Down"];
-
-const statusMessages = {
-  ready: "To start: Tap game or TAB to focus then SPACE",
-  running: "SPACE, UP or tap to jump, DOWN to duck",
-  paused: "Paused. To resume: Tap game or TAB to focus then SPACE",
-};
 
 // One of "ready", "running", "paused" or "crashed".
 let state = "ready";
@@ -110,7 +105,7 @@ function crash() {
   crashDino();
 
   const score = getScore();
-  showText("holotapeStatus", `Game over at ${score} points. Press SPACE or tap to retry`);
+  showText("holotapeStatus", holotapeMessages.crashed(score));
 
   if (score <= highScore) return;
 
@@ -148,7 +143,7 @@ function tick(time) {
 function run() {
   state = "running";
   lastFrameTime = null;
-  showText("holotapeStatus", statusMessages.running);
+  showText("holotapeStatus", holotapeMessages.running);
 
   frameRequest = requestAnimationFrame(tick);
 }
@@ -179,7 +174,7 @@ function pause() {
 
   endJump();
   releaseDuck();
-  showText("holotapeStatus", statusMessages.paused);
+  showText("holotapeStatus", holotapeMessages.paused);
 }
 
 // Switching apps or locking a phone hides the page without always blurring
@@ -260,7 +255,7 @@ export function initHolotape() {
 
   highScore = Number(readSetting("holotapeHighScore")) || 0;
   showText("holotapeHighScore", formatScore(highScore));
-  showText("holotapeStatus", statusMessages.ready);
+  showText("holotapeStatus", holotapeMessages.ready);
   draw();
 
   gameArea.addEventListener("keydown", onKeyDown);

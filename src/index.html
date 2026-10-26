@@ -223,6 +223,8 @@
         </ul>
       </section>
 
+      <p class="visually-hidden settingStatus" aria-live="polite"></p>
+
       <section id="info">
         <p class="banner" aria-hidden="true">Welcome to ROBCO Industries (TM) Termlink</p>
 
@@ -617,21 +619,15 @@
     <audio class="bootupAudio" src="./audio/bootup.mp3" preload="none"></audio>
     <audio class="staticAudio" src="./audio/static.mp3" preload="none"></audio>
 
-    <audio
-      class="radioStation"
-      data-station="New Vegas Radio"
-      src="R2:fallout-resume/radio.m4a"
-      preload="none"></audio>
-    <audio
-      class="radioStation"
-      data-station="Diamond City Radio"
-      src="R2:fallout-resume/radio_MNa5SYEc8Mo.m4a"
-      preload="none"></audio>
-    <audio
-      class="radioStation"
-      data-station="Galaxy News Radio"
-      src="R2:fallout-resume/radio_LxM7soNJC1A.m4a"
-      preload="none"></audio>
+    <audio class="radioStation" src="R2:fallout-resume/radio.m4a" preload="none">
+      New Vegas Radio
+    </audio>
+    <audio class="radioStation" src="R2:fallout-resume/radio_MNa5SYEc8Mo.m4a" preload="none">
+      Diamond City Radio
+    </audio>
+    <audio class="radioStation" src="R2:fallout-resume/radio_LxM7soNJC1A.m4a" preload="none">
+      Galaxy News Radio
+    </audio>
 
     <script src="index.js"></script>
   </body>
