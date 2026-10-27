@@ -1,6 +1,6 @@
 name: deploy to GitHub Pages
 
-# Also run every 5 days from huge-assets to renew the radio's signed URL (see build.js).
+# Also run every 5 days from jialiang/scheduler to renew the radio's signed URL (see build.js).
 on:
   push:
     branches:
