@@ -72,9 +72,26 @@ function updateFisheye() {
   if (previousUrl) URL.revokeObjectURL(previousUrl);
 }
 
+// SVG filters on HTML break on Safari engine, potentially leaving text blank.
+// Chromium browsers also claim AppleWebKit, but only they add "Chrome/".
+function getIsSafariEngine() {
+  const userAgent = navigator.userAgent;
+  return /AppleWebKit\//.test(userAgent) && !/Chrome\//.test(userAgent);
+}
+
+// Before Chrome 83, the filter drew at the wrong scale whenever
+// the device pixel ratio wasn't 1 (high-DPI screens or page zoom),
+// leaving the text clipped and doubled.
+function getIsOldChrome() {
+  const chromeVersion = navigator.userAgent.match(/Chrome\/(\d+)/);
+  return chromeVersion !== null && Number(chromeVersion[1]) < 83;
+}
+
 export function applyFisheye() {
+  if (getIsSafariEngine() || getIsOldChrome()) return;
+
   const main = document.querySelector("main");
-  main.style.filter = "url(#fisheye)";
+  main.classList.add("fisheye");
 
   if (window.ResizeObserver) {
     new ResizeObserver(updateFisheye).observe(main);

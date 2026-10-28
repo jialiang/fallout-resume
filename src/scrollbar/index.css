@@ -1,10 +1,15 @@
 .scrollbar {
   position: absolute;
-  top: 10%;
+  top: 20%;
   right: 7%;
-  bottom: 10%;
+  bottom: 20%;
   width: 0.25em;
   pointer-events: none;
+}
+
+.fisheye .scrollbar {
+  top: 10%;
+  bottom: 10%;
 }
 
 .scrollbarThumb {

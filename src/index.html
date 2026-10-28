@@ -87,10 +87,6 @@
         .show-if-no-js {
           display: initial;
         }
-
-        main {
-          filter: url(#fisheyeFallback);
-        }
       </style>
     </noscript>
   </head>
@@ -108,27 +104,6 @@
         <feDisplacementMap in="SourceGraphic" in2="map" xChannelSelector="R" yChannelSelector="G" />
       </filter>
     </svg>
-
-    <noscript>
-      <svg width="0" height="0" style="position: absolute" aria-hidden="true">
-        <filter
-          id="fisheyeFallback"
-          x="0"
-          y="0"
-          width="100%"
-          height="100%"
-          primitiveUnits="objectBoundingBox"
-          color-interpolation-filters="sRGB">
-          <feImage xlink:href="fisheye.png" result="map" preserveAspectRatio="none" />
-          <feDisplacementMap
-            in="SourceGraphic"
-            in2="map"
-            scale="0.13"
-            xChannelSelector="R"
-            yChannelSelector="G" />
-        </filter>
-      </svg>
-    </noscript>
 
     <div class="monitor" role="presentation">
       <div class="scanlines"></div>
